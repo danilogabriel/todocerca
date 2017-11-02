@@ -1,12 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import Pedidos from '@/Pedidos.vue'
+import Clientes from '@/Clientes.vue'
+import Productos from '@/Productos.vue'
+import Resumen from '@/Resumen.vue'
+import Lista from '@/Lista.vue'
+import ClienteDetail from '@/ClienteDetail.vue'
+
 Vue.use(VueRouter)
 
+/*
+ * Uncomment this section and use "load()" if you want
+ * to lazy load routes.
 function load (component) {
   // '@' is aliased to src/components
   return () => import(`@/${component}.vue`)
 }
+*/
 
 export default new VueRouter({
   /*
@@ -21,13 +32,13 @@ export default new VueRouter({
    * build publicPath back to '' so Cordova builds work again.
    */
 
-  mode: 'hash',
-  scrollBehavior: () => ({ y: 0 }),
-
   routes: [
-    { path: '/', component: load('Hello') },
+    { path: '/pedidos', component: Pedidos },
+    { path: '/clientes', component: Clientes },
+    
+    { path: '/clientedetail/:id', component: ClienteDetail },
 
-    // Always leave this last one
-    { path: '*', component: load('Error404') } // Not found
+    { path: '/productos', component: Productos },
+    { path: '/resumen', component: Resumen }
   ]
 })

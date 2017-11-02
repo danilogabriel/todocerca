@@ -30,6 +30,21 @@ Quasar.start(() => {
   new Vue({
     el: '#q-app',
     router,
+
+    data: function () {
+      return {
+        arrayUsuarios: { }
+      }
+    },
+    mounted: function () {
+        const unUsuario="danilo biondi"
+        console.log("se monta la APP")
+    },
+    created: function () {
+      console.log("se acaba de crear la instancia de APP")
+      
+    },  
+
     render: h => h(require('./App').default)
   })
 })
