@@ -12,39 +12,28 @@ require(`quasar/dist/quasar.${__THEME}.css`)
 
 import Vue from 'vue'
 import Quasar from 'quasar'
+import store from './store/index'
 import router from './router'
+import VueFire from 'vuefire'
 
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
+Vue.use(VueFire)
 
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')
 }
 import 'quasar-extras/material-icons'
-// import 'quasar-extras/ionicons'
-// import 'quasar-extras/fontawesome'
+import 'quasar-extras/ionicons'
+import 'quasar-extras/fontawesome'
 // import 'quasar-extras/animate'
 
 Quasar.start(() => {
   /* eslint-disable no-new */
   new Vue({
     el: '#q-app',
+    store,
     router,
-
-    data: function () {
-      return {
-        arrayUsuarios: { }
-      }
-    },
-    mounted: function () {
-        const unUsuario="danilo biondi"
-        console.log("se monta la APP")
-    },
-    created: function () {
-      console.log("se acaba de crear la instancia de APP")
-      
-    },  
-
-    render: h => h(require('./App').default)
+    render: h => h(require('./App'))
   })
 })

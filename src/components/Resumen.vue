@@ -2,10 +2,6 @@
   <div>
       Resumen de Actividades
 
-      <q-btn color="primary" icon="mail" @click="clickMethod">
-        Confirmar
-      </q-btn>
-
   </div>
 </template>
 

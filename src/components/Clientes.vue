@@ -38,7 +38,6 @@ import { QToolbar } from 'quasar'
 import {  QInfiniteScroll, QSpinnerDots, Loading } from 'quasar'
 import { QSearch, QScrollArea,QField,QList,QListHeader,QItem,QItemSeparator,QItemSide,QItemMain,QItemTile} from 'quasar'
 import db from '@/datasource.js'
-import VueEvents from 'vue-events'
 
 function showSpinner () {
   Loading.show({message: "Cargando datos..."})

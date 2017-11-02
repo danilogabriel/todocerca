@@ -9,7 +9,7 @@ let config = {
     projectId: "gestiontodocerca",
     storageBucket: "gestiontodocerca.appspot.com",
     messagingSenderId: "149888067000"
-  };
+  }
 
 
 //------------------  CONFIG A BASE NUEVA TODO CERCA  ----------------------

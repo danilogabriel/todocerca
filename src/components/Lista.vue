@@ -63,7 +63,7 @@ export default {
     },
     data: function () {
         return {
-            dataTableData: [],
+
             config: {
                 title: 'My Data Table',
                 refresh: true,

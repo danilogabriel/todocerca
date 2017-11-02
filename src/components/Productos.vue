@@ -1,7 +1,5 @@
 <template>
-
    <div> 
-
   <!-------------- Search -------------->
   <q-toolbar color="primary">
     <q-search inverted 
@@ -13,7 +11,7 @@
     />
   </q-toolbar>
     <!------------ Lista Productos ---------->
-    <div v-for="(usu,key) in UsuariosFiltrados" class="list striped">    
+    <div v-for="(usu,key) in usuariosFiltrados" class="list striped">    
             <q-list striped> 
                 <q-item to="/lista">
                   <q-item-side>{{ usu['.key'] }}</q-item-side>
@@ -37,7 +35,7 @@ import { QToolbar } from 'quasar'
 import {  QInfiniteScroll, QSpinnerDots, Loading } from 'quasar'
 import { QSearch, QScrollArea,QField,QList,QListHeader,QItem,QItemSeparator,QItemSide,QItemMain,QItemTile} from 'quasar'
 import db from '@/datasource.js'
-import VueEvents from 'vue-events'
+import { mapGetters } from 'vuex'
 
 function showSpinner () {
   Loading.show({message: "Cargando datos..."})
@@ -50,23 +48,25 @@ export default {
   name: 'productos',
   data: function () {
     return {
-      searchText: null,
-      usuarios: {}
+      searchText: null
     }
   },
-  firebase: {
-    usuarios: db.ref('usuarios')
-  },
+//   Antes de implementar VuexFire (la sincronizacion de Vuex con Firebase) los usuarios se 
+//   cargaban aqui
+//   firebase: {
+//     usuarios: db.ref('usuarios')
+//   },
   computed:
   {
-    
-      UsuariosFiltrados:function()
+      ...mapGetters(['usuariosBaseDatos']),
+
+      usuariosFiltrados:function()
       {   
           if (this.searchText != null) {
              var self=this;
-             return this.usuarios.filter(function(usu){return usu.nombre.toLowerCase().indexOf(self.searchText.toLowerCase())>=0;});
+             return this.usuariosBaseDatos.filter(function(usu){return usu.nombre.toLowerCase().indexOf(self.searchText.toLowerCase())>=0;});
           } else {
-              return this.usuarios
+              return this.usuariosBaseDatos
           }
       }
   },  
@@ -79,31 +79,8 @@ export default {
 
   },
    mounted() {
-     showSpinner()
-     console.log("Componente de Productos MONTADO") 
-    // let usuariosRef = db.ref('usuarios')
-    // console.log(typeof(usuariosRef))
-
-
-/*
-      var refUsuarios = db.ref('usuarios')
-      refUsuarios.on("value", function(snapshot) {
-        this.usuarios = snapshot.val()
-        //console.log(snapshot.val());
-      }, function (errorObject) {
-        console.log("Error al cargar : " + errorObject.code);
-      });
-*/     
-     
-     
-     
-     
-     //const usuref = db.ref('usuarios').once('value', snapshot => {
-     //      console.log("se terminaron de cargar los usuarios")
-     //      this.usuarios = usuref
-     //      //this.$events.fire('UsuariosCargados', unUsuario);
-     // })
-  
+     //showSpinner()
+     console.log("Componente de Productos MONTADO")  
   },
   methods: {
     search() {

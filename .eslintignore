@@ -5,3 +5,4 @@ src/*.js
 src/*.vue
 src/components/*.js
 src/components/*.vue
+src/store/*.js

@@ -62,14 +62,19 @@
   </template>
   
   <script>
-  //-- Sacar este import para produccion. Permite hacer boton derecho sobre un
-  //   componente y ver su estado
-  import 'vue-clicky'
+  import firebase from 'firebase'
   import {
     QSearch,
     QLayout,QFixedPosition, QToolbar,QToolbarTitle,QBtn,QIcon,QItemSide,QItemMain,QSideLink,QListHeader,QList
   } from 'quasar'
-  
+ 
+
+  import db from '@/datasource.js'            //---  importo la conexion
+  var usuariosRef = db.ref('usuarios')        //---  defino de manera glogal el acceso a la base 
+                                              //     de usuarios.
+
+
+
   export default {
     components: { 
       QSearch,
@@ -79,6 +84,11 @@
       return {
   
       }
+    },
+    created() {
+      //-- Ni bien se crea la app ejecuto el action pasandole la referencia de acceso 
+      //   a la base de datos que trae Usuarios ("usuariosRef")
+      this.$store.dispatch('setUsuariosRef', usuariosRef) 
     }
   }
   </script>
