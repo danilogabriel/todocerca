@@ -10,6 +10,7 @@ import firebase from 'firebase'
 import vuexfire from 'vuexfire'
 import { firebaseAction } from 'vuexfire'
 import { firebaseMutations } from 'vuexfire'
+import createPersistedState from 'vuex-persistedstate'  //-- https://github.com/robinvdvleuten/vuex-persistedstate
 
 Vue.use(Vuex)
 
@@ -21,8 +22,23 @@ const store = new Vuex.Store({
 
         title: 'Todo Cerca',
         filterList: false,
-        user: {}
+        user: {},
+
+        prueba: {
+            domicilio: 'Av. San Martin 1444 - Buenos Aires',
+            estudio: {
+                nivel: 'terciario',
+                institucion: 'Instituto de Formacion'
+            }
+        }
     },
+    plugins: [createPersistedState({
+        key: 'todocerca',    //-- The key to store the persisted state under. (default: vuex)
+        path: [              //--  An array of any paths to partially persist the state. If no paths are given, the complete state is persisted
+            'state.prueba.domicilio',
+            'state.prueba.estudio.nivel'
+        ]
+    })],
     actions: {
         login(context) {
             context.commit('login')
