@@ -3,31 +3,33 @@
    <div> 
 
   <!-------------- Search -------------->
-  <q-toolbar color="primary">
-    <q-search inverted 
-       v-model="searchText" 
-       :debounce="600"
-       color="none" 
-       icon="search"
-       @change="search"
-    />
-  </q-toolbar>
+  <q-slide-transition>
+    <q-toolbar color="primary" style="min-height: auto; position: sticky; top: 50px; z-index: 200">
+      <q-search flat inverted 
+        v-model="searchText" 
+        :debounce="600"
+        color="primary" 
+        icon="search"
+        @change="search"
+        style="box-shadow: none"
+        placeholder="Buscar"
+      />
+    </q-toolbar>
+  </q-slide-transition>
     <!------------ Lista Productos ---------->
-    <div v-for="(usu,key) in UsuariosFiltrados" >    
-            <q-list striped> 
-              
-                <q-item :to="'/clientedetail/' + usu.telefono" >
-                  <q-item-side>{{ usu['.key'] }}</q-item-side>
-                  <q-item-main>
-                    <q-item-tile label>{{ usu.nombre }}</q-item-tile>
-                    <q-item-tile sublabel>{{ usu.telefono }}</q-item-tile>
-                  </q-item-main>
-                  <q-item-side right>
-                    <q-item-tile icon="more_vert"/>
-                  </q-item-side>
-                </q-item>
-            </q-list>
-    </div>
+    <q-list inset-separator no-border link>
+        <q-item :to="'/clientedetail/' + usu.telefono" v-for="(usu,key) in UsuariosFiltrados" :key="key">
+          <!-- <q-item-side>{{ usu['.key'] }}</q-item-side> -->
+          <q-item-side icon="person" inverted color="primary"></q-item-side>
+          <q-item-main>
+            <q-item-tile label>{{ usu.nombre }}</q-item-tile>
+            <q-item-tile sublabel>{{ usu.telefono }}</q-item-tile>
+          </q-item-main>
+          <!-- <q-item-side right>
+            <q-item-tile icon="more_vert"/>
+          </q-item-side> -->
+        </q-item>
+    </q-list>
 
   </div>
 
@@ -35,7 +37,7 @@
 
 <script>
 import { QToolbar } from 'quasar'
-import {  QInfiniteScroll, QSpinnerDots, Loading } from 'quasar'
+import {  QSlideTransition, QInfiniteScroll, QSpinnerDots, Loading } from 'quasar'
 import { QSearch, QScrollArea,QField,QList,QListHeader,QItem,QItemSeparator,QItemSide,QItemMain,QItemTile} from 'quasar'
 import db from '@/datasource.js'
 
@@ -72,7 +74,7 @@ export default {
   },  
   components: {
     QToolbar,
-    QInfiniteScroll, QSpinnerDots,
+    QSlideTransition, QInfiniteScroll, QSpinnerDots,
     QSearch,QScrollArea,QField,QList,QListHeader, QItem,QItemSeparator,QItemSide,QItemMain,QItemTile 
   }, 
   created: function(){
