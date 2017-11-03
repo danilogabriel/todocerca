@@ -1,6 +1,6 @@
 <template>
   
-    <q-layout ref="layout" view="hHr LpR lFf"> 
+    <q-layout ref="layout" view="lHh Lpr fFf"> 
   
       <q-toolbar slot="header">
         
@@ -8,33 +8,22 @@
             <q-icon name="menu" />
         </q-btn>
         <q-toolbar-title>
-          Todo Cerca
+          {{ title }}
           <!-- <span slot="subtitle">Gestion de Pedidos</span> -->
         </q-toolbar-title>
 
-        <q-btn flat>
+        <q-btn flat @click="toggleFilterList()">
           <q-icon name="search" />
         </q-btn>
  
       </q-toolbar>
-      <!--
-    <q-toolbar slot="header" color="primary">
-      <q-search inverted 
-         v-model="searchText" 
-         :debounce="600"
-         color="none" 
-         icon="search"
-         @change="search"
-      />
-    </q-toolbar>
-  -->
   
     <div slot="left">
       <q-list no-border inset-separator>
         <q-item>
           <q-item-side icon="person" inverted color="primary"/>
           <q-item-main>
-            <q-item-tile label>Nombre del vendedor I</q-item-tile>
+            <q-item-tile label>Nombre del vendedor</q-item-tile>
             <q-item-tile sublabel>Cerrar sesión</q-item-tile>
           </q-item-main>
         </q-item>
@@ -60,8 +49,9 @@
     </div>
   
    
-      
-      <router-view />
+      <keep-alive>
+        <router-view />
+      </keep-alive>
    
       <q-toolbar slot="footer">
         <q-toolbar-title>
@@ -75,19 +65,16 @@
   
   <script>
   import firebase from 'firebase'
+  import { mapState } from 'vuex'
   import {
     QSearch,
     QLayout,QFixedPosition, QToolbar,QToolbarTitle,QBtn,QIcon,QItemSide,QItemMain,QSideLink,QListHeader,QList,
     QItem,QItemSeparator,QItemTile
   } from 'quasar'
  
-
   import db from '@/datasource.js'            //---  importo la conexion
   var usuariosRef = db.ref('usuarios')        //---  defino de manera glogal el acceso a la base 
                                               //     de usuarios.
-
-
-
   export default {
     components: { 
       QSearch,
@@ -103,6 +90,14 @@
       //-- Ni bien se crea la app ejecuto el action pasandole la referencia de acceso 
       //   a la base de datos que trae Usuarios ("usuariosRef")
       this.$store.dispatch('setUsuariosRef', usuariosRef) 
+    },
+    methods: {
+      toggleFilterList () {
+        this.$store.dispatch('toggleFilterList')
+      }
+    },
+    computed: {
+      ...mapState(['title']),
     }
   }
   </script>

@@ -19,7 +19,7 @@ const store = new Vuex.Store({
 
         usuariosBaseDatos: [],
 
-        title: 'Tu look!',
+        title: 'Todo Cerca',
         filterList: false,
         user: {}
     },
