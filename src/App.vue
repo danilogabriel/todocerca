@@ -34,7 +34,7 @@
         <q-item>
           <q-item-side icon="person" inverted color="primary"/>
           <q-item-main>
-            <q-item-tile label>Nombre del vendedor</q-item-tile>
+            <q-item-tile label>Nombre del vendedor I</q-item-tile>
             <q-item-tile sublabel>Cerrar sesión</q-item-tile>
           </q-item-main>
         </q-item>
