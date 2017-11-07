@@ -2,14 +2,19 @@
    <section> 
     <!-------------- Search -------------->
     <q-slide-transition>
-      <q-toolbar color="primary" 
-          style="min-height: auto; position: sticky; top: 50px; z-index: 200"
+      <q-toolbar color="primary" id="filterBar"
           v-show="filterList">
-        <q-search flat inverted 
+        <q-search inverted ref="filterRef"
           v-model="searchText" 
-          :debounce="600"
-          color="primary" 
-          style="box-shadow: none"
+          color="none"
+          :before="[
+            {
+              icon: 'arrow_back',
+              handler () {
+                toggleFilterList()
+              }
+            }
+          ]"
           placeholder="Buscar..."
         />
       </q-toolbar>
@@ -21,7 +26,7 @@
           <q-item-side icon="person" inverted color="primary"></q-item-side>
           <q-item-main>
             <q-item-tile label>{{ usu.nombre }}</q-item-tile>
-            <q-item-tile sublabel>{{ usu.telefono }}</q-item-tile>
+            <q-item-tile sublabel>{{ usu['.key'] }} - {{ usu.telefono }}</q-item-tile>
           </q-item-main>
           <!-- <q-item-side right>
             <q-item-tile icon="more_vert"/>
@@ -70,11 +75,15 @@ export default {
      console.log("Componente de Productos MONTADO") 
   },
   methods: {
-    search() {
+    search () {
       var self=this;
       console.log("search con valor: " + self.searchText)
       return self.usuarios.filter( function(usu) {
              return usu.nombre.toLowerCase().indexOf( self.searchText.toLowerCase() )>=0;});      
+    },
+    toggleFilterList () {
+      this.searchText = ""
+      this.$store.dispatch('toggleFilterList')
     }
   }
 
@@ -82,5 +91,10 @@ export default {
 </script>
 
 <style lang="stylus">
-
+  #filterBar {
+    min-height: auto;
+    position: fixed;
+    top: 0px;
+    z-index: 2500
+  }
 </style>
