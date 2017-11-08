@@ -26,14 +26,12 @@
           <!-- <q-item-side>{{ cli['.key'] }}</q-item-side> -->
           <q-item-side icon="person" inverted color="primary"></q-item-side>
           <q-item-main>
-            <q-item-tile label>{{ cli.nombre }}
-              <q-chip v-show="cli['.key']==6" floating color="red">2</q-chip>
-            </q-item-tile>
+            <q-item-tile label>{{ cli.nombre }} </q-item-tile>
             <q-item-tile sublabel>{{  ('00000'+ cli['.key'] ).slice(-5)  }} - {{ cli.domicilio }}</q-item-tile>
           </q-item-main>
-          <!-- <q-item-side right>
-            <q-item-tile icon="more_vert"/>
-          </q-item-side> -->
+          <q-item-side right>
+              <q-chip small v-show="cli['.key']==6" color="red">2</q-chip>
+          </q-item-side>
         </q-item>
     </q-list>
   </section>
@@ -44,7 +42,6 @@ import { QToolbar, QChip } from 'quasar'
 import {  QSlideTransition, QInfiniteScroll, QSpinnerDots, Loading } from 'quasar'
 import { QSearch, QScrollArea,QField,QList,QListHeader,QItem,QItemSeparator,QItemSide,QItemMain,QItemTile} from 'quasar'
 import { mapState } from 'vuex'
-import db from '@/datasource.js'
 
 export default {
   name: 'clientes',
@@ -53,14 +50,7 @@ export default {
       searchText: ''
     }
   },
-  
-  //   Esto iba antes de que empecemos a usar VUEXFIRE y en cada componente habia que llamar a firebase.
-  //   Ahora, con VUEXFIRE los datos se cargan y sincronizan en un solo lugar: VUEX
-
-  // firebase: {
-  //   usuarios: db.ref('clientes')
-  // },
-  
+   
   computed:
   {
     ...mapState(['clientesList', 'filterSearchClientes', 'activateSearchClientes']),

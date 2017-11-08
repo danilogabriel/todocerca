@@ -1,12 +1,12 @@
 <template>
   <div>
-      Resumen de Actividades
-
+    Resumen
   </div>
 </template>
 
 <script>
 export default {
+  
   name: 'resumen'
 }
 </script>
