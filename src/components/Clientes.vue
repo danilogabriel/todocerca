@@ -3,7 +3,7 @@
     <!-------------- Search -------------->
     <q-slide-transition>
       <q-toolbar color="primary" id="filterBar"
-          v-show="filterList">
+          v-show="activateSearchClientes">
         <q-search inverted ref="filterRef"
           v-model="searchText" 
           color="none"
@@ -11,7 +11,7 @@
             {
               icon: 'arrow_back',
               handler () {
-                toggleFilterList()
+                toggleSearchBar()
               }
             }
           ]"
@@ -21,12 +21,15 @@
     </q-slide-transition>
     <!------------ Lista Productos ---------->
     <q-list inset-separator no-border link>
-        <q-item :to="'/clientedetail/' + usu.telefono" v-for="(usu,key) in filteredShops" :key="key">
-          <!-- <q-item-side>{{ usu['.key'] }}</q-item-side> -->
+        <q-item :to="'/clientedetail/' + cli['.key']" v-for="(cli,key) in filteredShops" :key="key">
+          
+          <!-- <q-item-side>{{ cli['.key'] }}</q-item-side> -->
           <q-item-side icon="person" inverted color="primary"></q-item-side>
           <q-item-main>
-            <q-item-tile label>{{ usu.nombre }}</q-item-tile>
-            <q-item-tile sublabel>{{ usu['.key'] }} - {{ usu.telefono }}</q-item-tile>
+            <q-item-tile label>{{ cli.nombre }}
+              <q-chip v-show="cli['.key']==6" floating color="red">2</q-chip>
+            </q-item-tile>
+            <q-item-tile sublabel>{{  ('00000'+ cli['.key'] ).slice(-5)  }} - {{ cli.domicilio }}</q-item-tile>
           </q-item-main>
           <!-- <q-item-side right>
             <q-item-tile icon="more_vert"/>
@@ -37,7 +40,7 @@
 </template>
 
 <script>
-import { QToolbar } from 'quasar'
+import { QToolbar, QChip } from 'quasar'
 import {  QSlideTransition, QInfiniteScroll, QSpinnerDots, Loading } from 'quasar'
 import { QSearch, QScrollArea,QField,QList,QListHeader,QItem,QItemSeparator,QItemSide,QItemMain,QItemTile} from 'quasar'
 import { mapState } from 'vuex'
@@ -47,24 +50,29 @@ export default {
   name: 'clientes',
   data: function () {
     return {
-      searchText: '',
-      usuarios: {}
+      searchText: ''
     }
   },
-  firebase: {
-    usuarios: db.ref('usuarios')
-  },
+  
+  //   Esto iba antes de que empecemos a usar VUEXFIRE y en cada componente habia que llamar a firebase.
+  //   Ahora, con VUEXFIRE los datos se cargan y sincronizan en un solo lugar: VUEX
+
+  // firebase: {
+  //   usuarios: db.ref('clientes')
+  // },
+  
   computed:
   {
-    ...mapState(['filterList']),
-    filteredShops () {
-      return this.usuarios.filter(item => {
-        return item.nombre.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
-      })
+    ...mapState(['clientesList', 'filterSearchClientes', 'activateSearchClientes']),
+
+    filteredShops : function () {
+       return this.clientesList.filter(item => {
+         return item.nombre.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+       })
     },
   },  
   components: {
-    QToolbar,
+    QToolbar,QChip,
     QSlideTransition, QInfiniteScroll, QSpinnerDots,
     QSearch,QScrollArea,QField,QList,QListHeader, QItem,QItemSeparator,QItemSide,QItemMain,QItemTile 
   }, 
@@ -72,21 +80,14 @@ export default {
 
   },
    mounted() {
-     console.log("Componente de Productos MONTADO") 
+     console.log("Lista de Clientes montado") 
   },
   methods: {
-    search () {
-      var self=this;
-      console.log("search con valor: " + self.searchText)
-      return self.usuarios.filter( function(usu) {
-             return usu.nombre.toLowerCase().indexOf( self.searchText.toLowerCase() )>=0;});      
-    },
-    toggleFilterList () {
+    toggleSearchBar () {
       this.searchText = ""
-      this.$store.dispatch('toggleFilterList')
+      this.$store.commit('toggleSearchBar')
     }
   }
-
 }
 </script>
 

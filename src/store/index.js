@@ -18,10 +18,13 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
 
-        usuariosBaseDatos: [],
+        clientesList: [],
+        productosList: [],
 
+        activateSearchClientes: false,
+        activateSearchProductos: false,
+        
         title: 'Todo Cerca',
-        filterList: false,
         user: {},
 
         prueba: {
@@ -43,26 +46,29 @@ const store = new Vuex.Store({
         login(context) {
             context.commit('login')
         },
-        toggleFilterList(context) {
-            context.commit('toggleFilterList')
-        },
         
-        setUsuariosRef: firebaseAction(({ bindFirebaseRef }, ref) => {
-            bindFirebaseRef('usuariosBaseDatos', ref, { wait: true })
+        setClientesRef: firebaseAction(({ bindFirebaseRef }, ref) => {
+            bindFirebaseRef('clientesList', ref, { wait: true })
         }),        
-
+        setProductosRef: firebaseAction(({ bindFirebaseRef }, ref) => {
+            bindFirebaseRef('productosList', ref, { wait: true })
+        })
     },
 
     mutations: {
         ...firebaseMutations,      
 
-        toggleFilterList(state) {
-            state.filterList = !state.filterList
+        toggleSearchBar(state){
+            //----- state.route.path: propiedad que crea y mantiene la libreria 'vuex-router-sync' (main)
+            console.log(state.route.path)
+            if (state.route.path =='/clientes')  state.activateSearchClientes = !state.activateSearchClientes
+            if (state.route.path =='/productos') state.activateSearchProductos = !state.activateSearchProductos
         }
     },
 
     getters: {
-        usuariosBaseDatos: state => state.usuariosBaseDatos,
+        clientesList: state => state.clientesList,
+        productosList: state => state.productosList
     },
 })
 

@@ -12,7 +12,7 @@
           <!-- <span slot="subtitle">Gestion de Pedidos</span> -->
         </q-toolbar-title>
 
-        <q-btn flat @click="toggleFilterList()">
+        <q-btn flat @click="toggleSearchBar()">
           <q-icon name="search" />
         </q-btn>
  
@@ -72,9 +72,10 @@
     QItem,QItemSeparator,QItemTile
   } from 'quasar'
  
-  import db from '@/datasource.js'            //---  importo la conexion
-  var usuariosRef = db.ref('usuarios')        //---  defino de manera glogal el acceso a la base 
-                                              //     de usuarios.
+  import db from '@/datasource.js'             //---  importo la conexion
+  var clientesRef  = db.ref('clientes-chico')   //---  defino de manera glogal el acceso a la base 
+  var productosRef = db.ref('productos-chico')  //     de clientes y productos.
+
   export default {
     components: { 
       QSearch,
@@ -88,12 +89,25 @@
     },
     created() {
       //-- Ni bien se crea la app ejecuto el action pasandole la referencia de acceso 
-      //   a la base de datos que trae Usuarios ("usuariosRef")
-      this.$store.dispatch('setUsuariosRef', usuariosRef) 
+      //   a la base de datos que trae Clientes ("clientessRef") y Productos ("productosRef")
+      this.$store.dispatch('setClientesRef', clientesRef) 
+      this.$store.dispatch('setProductosRef', productosRef) 
     },
     methods: {
-      toggleFilterList () {
-        this.$store.dispatch('toggleFilterList')
+      toggleSearchBar () {
+
+        /*     IMPORTANTE !!!!!   (comente esta linea para dejar referencia de como estaba antes)
+             
+             El problema aqui es que se esta llamando a un ACTION (dispatch) en lugar de un 
+             MUTATION (commit).  Recordemos que ACTION es solo cuando hay involucrada alguna
+             operacion asincrona (llamado a API por ej.).
+             En este caso debe ser MUTATION porque solo se esta cambiando un valor del STATE.
+        */
+        //this.$store.dispatch('toggleFilterList')
+        
+        
+        //this.$store.commit('toggleFilterList')
+        this.$store.commit('toggleSearchBar')
       }
     },
     computed: {
