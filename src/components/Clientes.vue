@@ -22,7 +22,7 @@
     <!------------ Lista Productos ---------->
     <q-list inset-separator no-border link>
         <q-item :to="'/clientedetail/' + cli['.key']" v-for="(cli,key) in filteredShops" :key="key">
-          
+              
           <!-- <q-item-side>{{ cli['.key'] }}</q-item-side> -->
           <q-item-side icon="person" inverted color="primary"></q-item-side>
           <q-item-main>
