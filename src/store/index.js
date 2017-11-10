@@ -24,7 +24,9 @@ const store = new Vuex.Store({
         activateSearchClientes: false,
         activateSearchProductos: false,
         
-        title: 'Todo Cerca',
+        layout: {
+            title: 'Todo Cerca'
+        },
         user: {},
 
         prueba: {
@@ -56,8 +58,10 @@ const store = new Vuex.Store({
     },
 
     mutations: {
-        ...firebaseMutations,      
-
+        ...firebaseMutations,
+        updateLayoutConf(state, payload) {
+            state.layout = payload
+        },
         toggleSearchBar(state){
             //----- state.route.path: propiedad que crea y mantiene la libreria 'vuex-router-sync' (main)
             console.log(state.route.path)

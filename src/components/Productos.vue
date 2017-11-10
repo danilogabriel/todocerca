@@ -53,6 +53,12 @@ export default {
       searchText: ''
     }
   },
+  activated() {
+    updateLayout()
+  },
+  beforeMount() {
+    updateLayout()
+  },
   mounted() {
      console.log("Lista de Productos montado") 
   },
@@ -72,6 +78,13 @@ export default {
     toggleSearchBar () {
       this.searchText = ""
       this.$store.commit('toggleSearchBar')
+    },
+    updateLayout () {
+      let config = {
+        title: "Productos",
+        search: true
+      }
+      this.$store.commit('updateLayoutConf', config)
     }
   }
 }

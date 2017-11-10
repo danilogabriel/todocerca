@@ -8,11 +8,11 @@
             <q-icon name="menu" />
         </q-btn>
         <q-toolbar-title>
-          {{ title }}
+          {{ layout.title }}
           <!-- <span slot="subtitle">Gestion de Pedidos</span> -->
         </q-toolbar-title>
 
-        <q-btn flat @click="toggleSearchBar()">
+        <q-btn flat @click="toggleSearchBar()" v-show="layout.search">
           <q-icon name="search" />
         </q-btn>
  
@@ -111,7 +111,7 @@
       }
     },
     computed: {
-      ...mapState(['title']),
+      ...mapState(['layout']),
     }
   }
   </script>

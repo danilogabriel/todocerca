@@ -69,7 +69,14 @@ export default {
   created: function(){
 
   },
-   mounted() {
+  activated() {
+    let config = {
+      title: "Clientes",
+      search: true
+    }
+    this.$store.commit('updateLayoutConf', config)
+  },
+  mounted() {
      console.log("Lista de Clientes montado") 
   },
   methods: {

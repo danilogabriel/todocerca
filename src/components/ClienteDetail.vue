@@ -1,6 +1,6 @@
 <template>
   <div class="layout-padding row justify-center">
-      Cliente Detail {{ $route.params.id }}
+      Cliente Detail {{ this.idCliente }}
       <q-fixed-position corner="bottom-right" :offset="[18, 18]">
         <q-btn round color="secondary" icon="shopping_cart" class="animate-pop" @click="nuevoPedido()"/>
       </q-fixed-position>     
@@ -19,16 +19,16 @@ export default {
   },
   data() {
     return {
-      idCliente: null
     }
   },
-  mounted() {
-    this.idCliente = this.$route.params.id
+  computed: {
+    idCliente: function() {
+      return this.$route.params.id
+    }
   },
   methods: {
     nuevoPedido() {
-      this.$router.push({ path: '/nuevopedido/${idCliente}' })
-      //router.push({ path: '/nuevopedido', params: { idCliente }})      
+      this.$router.push({ path: `/nuevopedido/${this.idCliente}` })
     }
   }
 }

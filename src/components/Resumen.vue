@@ -7,7 +7,14 @@
 <script>
 export default {
   
-  name: 'resumen'
+  name: 'resumen',
+  activated() {
+    let config = {
+      title: "Todo cerca",
+      search: false
+    }
+    this.$store.commit('updateLayoutConf', config)
+  },
 }
 </script>
 

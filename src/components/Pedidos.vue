@@ -24,7 +24,14 @@ export default {
     QItemSide,
     QItemMain,
     QItemTile
-  }
+  },
+  activated() {
+    let config = {
+      title: "Pedidos",
+      search: true
+    }
+    this.$store.commit('updateLayoutConf', config)
+  },
 }
 </script>
 
