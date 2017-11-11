@@ -11,7 +11,8 @@ export default {
   activated() {
     let config = {
       title: "Todo cerca",
-      search: false
+      search: false,
+      cancel: false
     }
     this.$store.commit('updateLayoutConf', config)
   },

@@ -72,7 +72,8 @@ export default {
   activated() {
     let config = {
       title: "Clientes",
-      search: true
+      search: true,
+      cancel: false
     }
     this.$store.commit('updateLayoutConf', config)
   },

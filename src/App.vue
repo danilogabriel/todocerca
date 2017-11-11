@@ -15,6 +15,9 @@
         <q-btn flat @click="toggleSearchBar()" v-show="layout.search">
           <q-icon name="search" />
         </q-btn>
+        <q-btn flat @click="cancelar()" v-show="layout.cancel">
+          <q-icon name="delete" />
+        </q-btn>
  
       </q-toolbar>
   
@@ -94,6 +97,9 @@
       this.$store.dispatch('setProductosRef', productosRef) 
     },
     methods: {
+      cancelar() {
+        this.$router.go(-1)
+      },
       toggleSearchBar () {
 
         /*     IMPORTANTE !!!!!   (comente esta linea para dejar referencia de como estaba antes)

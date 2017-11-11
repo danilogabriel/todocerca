@@ -54,10 +54,10 @@ export default {
     }
   },
   activated() {
-    updateLayout()
+    this.updateLayout()
   },
   beforeMount() {
-    updateLayout()
+    this.updateLayout()
   },
   mounted() {
      console.log("Lista de Productos montado") 
@@ -82,7 +82,8 @@ export default {
     updateLayout () {
       let config = {
         title: "Productos",
-        search: true
+        search: true,
+        cancel: false
       }
       this.$store.commit('updateLayoutConf', config)
     }
