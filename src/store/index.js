@@ -32,7 +32,9 @@ const store = new Vuex.Store({
         activateSearchProductos: false,
         
         layout: {
-            title: 'Todo Cerca'
+            title: 'Todo Cerca',
+            search: false,
+            cancel: false
         },
         user: {},
 

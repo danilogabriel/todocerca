@@ -82,7 +82,8 @@ export default {
     updateLayout () {
       let config = {
         title: "Productos",
-        search: true
+        search: true,
+        cancel: false
       }
       this.$store.commit('updateLayoutConf', config)
     }

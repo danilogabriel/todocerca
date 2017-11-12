@@ -17,6 +17,14 @@ export default {
   components: {
     QBtn, QFixedPosition
   },
+  activated() {
+    let config = {
+      title: "Detalle del cliente",
+      search: false,
+      cancel: false
+    }
+    this.$store.commit('updateLayoutConf', config)
+  },
   data() {
     return {
     }

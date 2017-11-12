@@ -28,7 +28,8 @@ export default {
   activated() {
     let config = {
       title: "Pedidos",
-      search: true
+      search: true,
+      cancel: false
     }
     this.$store.commit('updateLayoutConf', config)
   },
