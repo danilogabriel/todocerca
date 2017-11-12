@@ -69,7 +69,7 @@
         <q-btn round icon="add" color="orange" class="animate-pop" @click="addProducto()"/>
       </q-fixed-position>
 
-      <q-modal ref="modalAddProducto" position="bottom" :content-css="{padding: '20px'}">
+      <q-modal ref="modalAddProducto" maximized position="bottom" :content-css="{padding: '20px'}">
         <h5>Agregar Producto</h5>
         <q-search autofocus ref="productFilterRef" v-model="productoFilter" placeholder="Buscar producto" @change="checkInput">
           <!-- <q-autocomplete @search="search" @selected="selected" /> -->
