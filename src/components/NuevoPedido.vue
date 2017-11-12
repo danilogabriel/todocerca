@@ -223,12 +223,13 @@ export default {
     ...mapState(['productosList']),
     parsedProducts: function() {
       return this.productosList.map(product => {
+        let color = product.stock > 0 ? "primary" : "faded"
         return {
           label: product.descripcion,
           sublabel: product.id + " - Stock: " + product.stock,
-          icon: (product.stock > 0 ? "add_shopping_cart" : "not_interested"),
-          leftColor: (product.stock > 0 ? "primary" : "faded"),
-          rightColor: (product.stock > 0 ? "primary" : "faded"),
+          icon: "add_shopping_cart",
+          leftColor: color,
+          rightColor: color,
           stamp: this.$options.filters.currency(product.precio),
           value: product.descripcion,
           price: product.precio,
