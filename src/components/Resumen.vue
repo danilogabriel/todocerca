@@ -29,7 +29,6 @@ import { QList,QItem,QItemSide,QItemMain,QItemTile} from 'quasar'
 
 export default {
   name: 'resumen',
-<<<<<<< HEAD
   components:{ QBtn,QList,QItem,QItemSide,QItemMain,QItemTile },
   data(){
     return {
@@ -56,13 +55,13 @@ export default {
           { idProducto: "1-0005", precio: 15.25, cantidad: 2, cantBonificada:1, montoItem: 15.25, montoDesc: 15.25 }          
         ]
       }
-=======
+    }
+  },
   activated() {
     let config = {
       title: "Todo cerca",
       search: false,
       cancel: false
->>>>>>> ac29bee41a18c1132292d43b12904d93a8b49ae7
     }
   },
   computed:
