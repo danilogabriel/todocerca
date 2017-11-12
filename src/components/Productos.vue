@@ -22,7 +22,7 @@
     <!------------ Lista Productos ---------->
     <q-list inset-separator no-border link>
         <q-item :to="'/clientedetail/' + prod['.key']" v-for="(prod,key) in filteredProducts" :key="key">
-          <q-item-side icon="person" inverted color="primary"></q-item-side>
+          <q-item-side icon="free_breakfast" inverted color="primary"></q-item-side>
           <q-item-main>
             <q-item-tile label>{{ prod.descripcion }}</q-item-tile>
             <q-item-tile sublabel>{{ prod['.key'] }} - Stock: {{ prod.stock }}</q-item-tile>
