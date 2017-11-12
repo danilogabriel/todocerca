@@ -56,10 +56,9 @@
         <router-view />
       </keep-alive>
    
-      <q-toolbar slot="footer">
-        <q-toolbar-title>
-          
-        </q-toolbar-title>
+      <q-toolbar slot="footer" v-if="layout.footer">
+          <div class="col">{{footerText.left}}</div>
+          <div class="col text-right">{{footerText.right}}</div>
       </q-toolbar> 
   
     </q-layout>
@@ -118,7 +117,7 @@
       }
     },
     computed: {
-      ...mapState(['layout']),
+      ...mapState(['layout', 'footerText']),
     }
   }
   </script>

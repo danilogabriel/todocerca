@@ -27,7 +27,7 @@
             <q-item-tile label>{{ prod.descripcion }}</q-item-tile>
             <q-item-tile sublabel>{{ prod['.key'] }} - Stock: {{ prod.stock }}</q-item-tile>
           </q-item-main>
-          <q-item-side right class="text-bold">$ {{ prod.precio }}</q-item-side>
+          <q-item-side right class="text-bold">{{ prod.precio | currency }}</q-item-side>
         </q-item>
     </q-list>
   </section>

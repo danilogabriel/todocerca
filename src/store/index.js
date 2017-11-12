@@ -34,8 +34,15 @@ const store = new Vuex.Store({
         layout: {
             title: 'Todo Cerca',
             search: false,
-            cancel: false
+            cancel: false,
+            footer: false
         },
+
+        footerText: {
+            left: "",
+            right: ""
+        },
+
         user: {},
 
         deviceID: ''   //-- valor puesto arbitrariamente para probar LocalStorage de QUASAR 
@@ -78,7 +85,14 @@ const store = new Vuex.Store({
             pedidosRef.child(now).set(pedido);
         },
         updateLayoutConf(state, payload) {
-            state.layout = payload
+            state.layout.title = payload.title || "Todo cerca"
+            state.layout.search = payload.search || false
+            state.layout.cancel = payload.cancel || false
+            state.layout.footer = payload.footer || false
+        },
+        updateFooterText(state, payload) {
+            state.footerText.left = payload.left || ""
+            state.footerText.right = payload.right || ""
         },
         toggleSearchBar(state){
             //----- state.route.path: propiedad que crea y mantiene la libreria 'vuex-router-sync' (main)
