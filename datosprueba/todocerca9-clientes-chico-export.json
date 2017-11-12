@@ -1,0 +1,892 @@
+[ null, {
+  "deuda" : 0.0,
+  "dias" : 60,
+  "domicilio" : "SAN MARTIN 642",
+  "estado" : 1,
+  "id" : 1,
+  "limite" : 600,
+  "nombre" : "D ALOISIO MARIA LETICIA",
+  "telefono" : "02477 410401"
+}, null, null, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "ROCHA 25",
+  "estado" : 1,
+  "id" : 4,
+  "limite" : 99999,
+  "nombre" : "GONZALEZ",
+  "telefono" : ""
+}, {
+  "deuda" : 667.83,
+  "dias" : 20,
+  "domicilio" : "MITRE 629",
+  "estado" : 1,
+  "id" : 5,
+  "limite" : 50000,
+  "nombre" : "COOPERATIVA DE CONSUMO",
+  "telefono" : "02473-480261"
+}, {
+  "deuda" : 1532.82,
+  "dias" : 60,
+  "domicilio" : "CORDOBA CASA 29 BRIO EL LAGO",
+  "estado" : 1,
+  "id" : 6,
+  "limite" : 3000,
+  "nombre" : "RAMOS CRISTIAN",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "FERRARI 209",
+  "estado" : 1,
+  "id" : 7,
+  "limite" : 0,
+  "nombre" : "BENET OMAR",
+  "telefono" : "02473-481042"
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "CALLE 48 Nº 1019",
+  "estado" : 1,
+  "id" : 8,
+  "limite" : 0,
+  "nombre" : "SUPERMERCADO DON ENRIQUE",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 30,
+  "domicilio" : "CALLE 46 Nº 1005",
+  "estado" : 1,
+  "id" : 9,
+  "limite" : 40000,
+  "nombre" : "GRANEROS Y ELEVADORES DE COLON.",
+  "telefono" : "02473-430444"
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "CALLE 22 Y 52",
+  "estado" : 1,
+  "id" : 11,
+  "limite" : 0,
+  "nombre" : "AUTOSERVICIO EL ANGEL",
+  "telefono" : "02473-423923"
+}, null, null, null, null, {
+  "deuda" : 234.0,
+  "dias" : 10,
+  "domicilio" : "CALLE 22 ENTRE 42 Y 43",
+  "estado" : 1,
+  "id" : 16,
+  "limite" : 999999,
+  "nombre" : "KIOSCO PITUFO",
+  "telefono" : "02473 15455329"
+}, null, null, null, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "AV 9 Y AV 50",
+  "estado" : 1,
+  "id" : 20,
+  "limite" : 0,
+  "nombre" : "YSI GUILLERMO DANIEL",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "BARRIO EL LAGO CASA 18",
+  "estado" : 1,
+  "id" : 21,
+  "limite" : 3000,
+  "nombre" : "BENITEZ NELIDA",
+  "telefono" : ""
+}, {
+  "deuda" : 693.07,
+  "dias" : 10,
+  "domicilio" : "CALLE 57 ENTRE 9 Y 10",
+  "estado" : 1,
+  "id" : 22,
+  "limite" : 3000,
+  "nombre" : "CALI -TAFFIRELLI OSCAR",
+  "telefono" : "02473-414848"
+}, null, null, null, null, null, {
+  "deuda" : 3468.62,
+  "dias" : 60,
+  "domicilio" : "DR ALEM 890",
+  "estado" : 1,
+  "id" : 28,
+  "limite" : 10000,
+  "nombre" : "BERLINGIERI MARIA DE LOS ANGELES",
+  "telefono" : "414959"
+}, {
+  "deuda" : 882.25,
+  "dias" : 60,
+  "domicilio" : "GENERAL PAZ 221",
+  "estado" : 1,
+  "id" : 29,
+  "limite" : 10000,
+  "nombre" : "JOSE F PACE",
+  "telefono" : "422141"
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "25 DE MAYO Y CASTELLI",
+  "estado" : 1,
+  "id" : 30,
+  "limite" : 0,
+  "nombre" : "SALEMI ESTELA",
+  "telefono" : ""
+}, null, null, {
+  "deuda" : 0.0,
+  "dias" : 10,
+  "domicilio" : "MITRE 319",
+  "estado" : 1,
+  "id" : 33,
+  "limite" : 999999,
+  "nombre" : "CUETO DANIEL.",
+  "telefono" : "15466701"
+}, null, null, null, {
+  "deuda" : 1655.54,
+  "dias" : 21,
+  "domicilio" : "RIVERO 3599",
+  "estado" : 0,
+  "id" : 37,
+  "limite" : 10000,
+  "nombre" : "ROASIO MARINE",
+  "telefono" : ""
+}, {
+  "deuda" : 7460.79,
+  "dias" : 30,
+  "domicilio" : "IRIGOYEN Y CHILE",
+  "estado" : 1,
+  "id" : 38,
+  "limite" : 20000,
+  "nombre" : "COOP DE EX TRAB.DE SAN CAYETANO",
+  "telefono" : "410752"
+}, {
+  "deuda" : 0.0,
+  "dias" : 9,
+  "domicilio" : "AVDA.ROCHA 199",
+  "estado" : 1,
+  "id" : 39,
+  "limite" : 10000,
+  "nombre" : "NOVACOVICH MARIA EMILIA",
+  "telefono" : ""
+}, {
+  "deuda" : 585.6,
+  "dias" : 45,
+  "domicilio" : "ALSINA 584",
+  "estado" : 1,
+  "id" : 40,
+  "limite" : 10000,
+  "nombre" : "TABORDA HECTOR",
+  "telefono" : ""
+}, {
+  "deuda" : 20295.49,
+  "dias" : 90,
+  "domicilio" : "ALSINA Y PASTEUR",
+  "estado" : 1,
+  "id" : 41,
+  "limite" : 500000,
+  "nombre" : "COOP DE EX TRABAJADORES DE SAN CAYETANO",
+  "telefono" : ""
+}, {
+  "deuda" : 1003.7,
+  "dias" : 30,
+  "domicilio" : "ALSINA 751",
+  "estado" : 1,
+  "id" : 42,
+  "limite" : 10000,
+  "nombre" : "ROJAS GNC-ESTACION SOL",
+  "telefono" : "443960"
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "ITALIA 11",
+  "estado" : 1,
+  "id" : 44,
+  "limite" : 0,
+  "nombre" : "LALLI MARIA",
+  "telefono" : ""
+}, {
+  "deuda" : 1636.42,
+  "dias" : 15,
+  "domicilio" : "AMEGHINO 2",
+  "estado" : 1,
+  "id" : 45,
+  "limite" : 99999999,
+  "nombre" : "SAEZ MATIAS",
+  "telefono" : ""
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 9,
+  "domicilio" : "ROCA 1079",
+  "estado" : 1,
+  "id" : 47,
+  "limite" : 10000,
+  "nombre" : "TORRECILLA CARMEN",
+  "telefono" : ""
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 15,
+  "domicilio" : "ROCA 1197 Y MONTEAGUDO",
+  "estado" : 1,
+  "id" : 49,
+  "limite" : 10000,
+  "nombre" : "MEARES MARIANA",
+  "telefono" : "412292"
+}, {
+  "deuda" : 1287.12,
+  "dias" : 30,
+  "domicilio" : "AVDA DE MAYO 1802",
+  "estado" : 0,
+  "id" : 50,
+  "limite" : 10000,
+  "nombre" : "AUT. LAS PIEDRAS MACA-SEDA S.A.",
+  "telefono" : "02477-431566"
+}, {
+  "deuda" : 363.43,
+  "dias" : 35,
+  "domicilio" : "ROCA 727",
+  "estado" : 1,
+  "id" : 51,
+  "limite" : 10000,
+  "nombre" : "USERO RUBEN",
+  "telefono" : ""
+}, {
+  "deuda" : 495.9,
+  "dias" : 20,
+  "domicilio" : "PINTO Y MERCED",
+  "estado" : 1,
+  "id" : 52,
+  "limite" : 10000,
+  "nombre" : "LA ESQUINA DE DOñA ROSA",
+  "telefono" : ""
+}, {
+  "deuda" : 55.21,
+  "dias" : 7,
+  "domicilio" : "MERCED 100",
+  "estado" : 1,
+  "id" : 53,
+  "limite" : 10000,
+  "nombre" : "HERNANDEZ EDUARDO",
+  "telefono" : "02477-"
+}, {
+  "deuda" : 37037.35,
+  "dias" : 60,
+  "domicilio" : "SAN NICOLAS 241",
+  "estado" : 1,
+  "id" : 54,
+  "limite" : 50000,
+  "nombre" : "WEISKOFF CLAUDIO",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "ALEM 261",
+  "estado" : 1,
+  "id" : 55,
+  "limite" : 0,
+  "nombre" : "AYALA",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "KIOSCO SHOPPING LA OPINION",
+  "estado" : 1,
+  "id" : 56,
+  "limite" : 10000,
+  "nombre" : "CAMARASA",
+  "telefono" : ""
+}, {
+  "deuda" : 1315.24,
+  "dias" : 60,
+  "domicilio" : "MERCED 357",
+  "estado" : 1,
+  "id" : 57,
+  "limite" : 10000,
+  "nombre" : "PARADOR PETRO PERGAMINO S.R.L. EN FORMAC",
+  "telefono" : ""
+}, null, {
+  "deuda" : 75.41,
+  "dias" : 7,
+  "domicilio" : "J B JUSTO 1730",
+  "estado" : 1,
+  "id" : 59,
+  "limite" : 999999,
+  "nombre" : "PANADERIA JARDIN",
+  "telefono" : "416001"
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "MERCED",
+  "estado" : 1,
+  "id" : 60,
+  "limite" : 0,
+  "nombre" : "LAS  BAMBINAS",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "SCALABRINI 1445",
+  "estado" : 1,
+  "id" : 61,
+  "limite" : 999999,
+  "nombre" : "GODOY EDUARDO - DESPENSA LAS NENAS",
+  "telefono" : ""
+}, null, null, {
+  "deuda" : 0.0,
+  "dias" : 30,
+  "domicilio" : "M ESCALABRINI 1787",
+  "estado" : 1,
+  "id" : 64,
+  "limite" : 500,
+  "nombre" : "ALBORNOZ CARLOS",
+  "telefono" : ""
+}, {
+  "deuda" : 3296.25,
+  "dias" : 30,
+  "domicilio" : "MENDOZA 974",
+  "estado" : 1,
+  "id" : 65,
+  "limite" : 10000,
+  "nombre" : "YOMAIEL ROSA",
+  "telefono" : "432076"
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "LAPRIDA 1034",
+  "estado" : 1,
+  "id" : 66,
+  "limite" : 0,
+  "nombre" : "VALENTINI ISABEL",
+  "telefono" : "428554"
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "LELOIR 1342",
+  "estado" : 1,
+  "id" : 68,
+  "limite" : 999999,
+  "nombre" : "ZIEHM NICOLAS",
+  "telefono" : "15628713"
+}, {
+  "deuda" : 7823.74,
+  "dias" : 60,
+  "domicilio" : "CALLE 13 Y 18",
+  "estado" : 1,
+  "id" : 69,
+  "limite" : 15000,
+  "nombre" : "DI LORENZO MARCELO",
+  "telefono" : "15343872"
+}, null, null, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "LARRETA 68",
+  "estado" : 1,
+  "id" : 72,
+  "limite" : 999999,
+  "nombre" : "GOMEZ VICTORIA",
+  "telefono" : "15629702"
+}, {
+  "deuda" : 151.22,
+  "dias" : 7,
+  "domicilio" : "MAGNANI 150",
+  "estado" : 1,
+  "id" : 73,
+  "limite" : 99999999,
+  "nombre" : "OBERMEYE MARIELA",
+  "telefono" : "421675"
+}, {
+  "deuda" : 7533.13,
+  "dias" : 30,
+  "domicilio" : "AV MITRE 715",
+  "estado" : 1,
+  "id" : 74,
+  "limite" : 30000,
+  "nombre" : "CARECO SUPERS S.A.- EL NUEVO SUPER",
+  "telefono" : "02273-442456"
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "AV MITRE Y CASTELLI",
+  "estado" : 1,
+  "id" : 76,
+  "limite" : 3000,
+  "nombre" : "LUCAS SCHMUNCK",
+  "telefono" : "02325-15684335"
+}, {
+  "deuda" : 4983.74,
+  "dias" : 90,
+  "domicilio" : "AV MITRE 535",
+  "estado" : 1,
+  "id" : 77,
+  "limite" : 15000,
+  "nombre" : "CARECO SUPERS S.A.-LA COOPERATIVA",
+  "telefono" : "02273-443565"
+}, {
+  "deuda" : 34.33,
+  "dias" : 7,
+  "domicilio" : "MITRE Y CHACABUCO",
+  "estado" : 1,
+  "id" : 78,
+  "limite" : 3000,
+  "nombre" : "RICCI MARIA DE LOS ANGELES",
+  "telefono" : "02273-15417002"
+}, {
+  "deuda" : 81.51,
+  "dias" : 7,
+  "domicilio" : "AV MITRE Y MORENO",
+  "estado" : 1,
+  "id" : 79,
+  "limite" : 10000,
+  "nombre" : "ALVAREZ HUGO",
+  "telefono" : "02273-442768"
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "RIVADAVIA 716",
+  "estado" : 1,
+  "id" : 81,
+  "limite" : 0,
+  "nombre" : "LA ESTRELLA DE ARECO S.A",
+  "telefono" : "02273-443983"
+}, null, null, {
+  "deuda" : 224.46,
+  "dias" : 7,
+  "domicilio" : "TUCUMAN 401",
+  "estado" : 1,
+  "id" : 84,
+  "limite" : 3000,
+  "nombre" : "EL ANGEL AZUL",
+  "telefono" : "02478-454728"
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "TUCUMAN 357",
+  "estado" : 1,
+  "id" : 85,
+  "limite" : 3000,
+  "nombre" : "MANZOTTI OSCAR ANTONIO",
+  "telefono" : "02478-15422408"
+}, {
+  "deuda" : 112.53,
+  "dias" : 7,
+  "domicilio" : "PERGAMINO 499",
+  "estado" : 1,
+  "id" : 86,
+  "limite" : 15000,
+  "nombre" : "AUTOSERVICIO MANRESA",
+  "telefono" : "02478-450602"
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "RIZZO Y TUCUMAN",
+  "estado" : 1,
+  "id" : 87,
+  "limite" : 3000,
+  "nombre" : "QUINTEROS ALEJANDRA",
+  "telefono" : "02478-453059"
+}, {
+  "deuda" : 2136.26,
+  "dias" : 7,
+  "domicilio" : "ALBERDI 866",
+  "estado" : 0,
+  "id" : 88,
+  "limite" : 3000,
+  "nombre" : "PENELAS PATO.",
+  "telefono" : "02478-454216"
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "LEANDRO DE ALEM CASA 48",
+  "estado" : 1,
+  "id" : 89,
+  "limite" : 0,
+  "nombre" : "GERMAN RICARDO",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "VICENTE LOPEZ 810",
+  "estado" : 1,
+  "id" : 90,
+  "limite" : 3000,
+  "nombre" : "JUSTO ARIEL NELSON",
+  "telefono" : ""
+}, {
+  "deuda" : 82.84,
+  "dias" : 7,
+  "domicilio" : "MEXICO Y BOLIVIA",
+  "estado" : 1,
+  "id" : 91,
+  "limite" : 3000,
+  "nombre" : "RIERA CAROLINA EDITH",
+  "telefono" : "02478-455343"
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "9 DE JULIO 602",
+  "estado" : 1,
+  "id" : 92,
+  "limite" : 3000,
+  "nombre" : "ORELLANO EMILIO-MINI MERCADO LA FAMILIA",
+  "telefono" : "02478-404054"
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "PERGAMINO Y RIZO",
+  "estado" : 1,
+  "id" : 93,
+  "limite" : 0,
+  "nombre" : "MANRAESA",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "AV BELGRANO 256",
+  "estado" : 1,
+  "id" : 94,
+  "limite" : 0,
+  "nombre" : "EL ANGEL AZUL",
+  "telefono" : ""
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "LEANDRO N. ALEM CASA 48",
+  "estado" : 1,
+  "id" : 96,
+  "limite" : 3000,
+  "nombre" : "KIOSCO EL SOL",
+  "telefono" : "02478-453672"
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "ALBERDI 866",
+  "estado" : 1,
+  "id" : 98,
+  "limite" : 0,
+  "nombre" : "PANELAS",
+  "telefono" : ""
+}, null, null, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "M T DE ALVEAR Y 9 DE JULIO",
+  "estado" : 1,
+  "id" : 101,
+  "limite" : 3000,
+  "nombre" : "MINIMERCADO LA EMILIA",
+  "telefono" : ""
+}, null, {
+  "deuda" : 297.28,
+  "dias" : 7,
+  "domicilio" : "CALLE 11 Nº 345",
+  "estado" : 1,
+  "id" : 103,
+  "limite" : 10000,
+  "nombre" : "GROSSO CINTIA.",
+  "telefono" : "410723"
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "CALLE 12 Nº 336",
+  "estado" : 1,
+  "id" : 104,
+  "limite" : 999999,
+  "nombre" : "LANZILLOTA DANIEL",
+  "telefono" : "411106"
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "CALLE 4 Nº 35",
+  "estado" : 1,
+  "id" : 105,
+  "limite" : 0,
+  "nombre" : "ZARATE CARMEN",
+  "telefono" : "15300834"
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 9,
+  "domicilio" : "AVELLANEDA Y NAMUNCURA",
+  "estado" : 1,
+  "id" : 107,
+  "limite" : 10000,
+  "nombre" : "ALLENDE RICARDO",
+  "telefono" : "440607"
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "L MORENO 523",
+  "estado" : 1,
+  "id" : 108,
+  "limite" : 999999,
+  "nombre" : "RIVOLTELLA ELENA",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "UGARTE 431",
+  "estado" : 1,
+  "id" : 109,
+  "limite" : 999999,
+  "nombre" : "BERZZI CARLOS",
+  "telefono" : ""
+}, {
+  "deuda" : 805.35,
+  "dias" : 15,
+  "domicilio" : "COLOMBIA 101",
+  "estado" : 1,
+  "id" : 110,
+  "limite" : 10000,
+  "nombre" : "FINN.",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "AV. ILLIA 2158",
+  "estado" : 1,
+  "id" : 111,
+  "limite" : 999999,
+  "nombre" : "MANSILLA - VERDULERIA",
+  "telefono" : ""
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "ROCHA 1146",
+  "estado" : 1,
+  "id" : 113,
+  "limite" : 9999999,
+  "nombre" : "RAMIREZ MARIO",
+  "telefono" : ""
+}, {
+  "deuda" : 32.28,
+  "dias" : 9,
+  "domicilio" : "ROCHA 978",
+  "estado" : 1,
+  "id" : 114,
+  "limite" : 10000,
+  "nombre" : "MELO - LOCUTORIO",
+  "telefono" : ""
+}, {
+  "deuda" : 1260.74,
+  "dias" : 9,
+  "domicilio" : "CARPANI COSTA 314",
+  "estado" : 1,
+  "id" : 115,
+  "limite" : 10000,
+  "nombre" : "GUERRINI WALTER JAVIER",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 9,
+  "domicilio" : "ANNAN 1351",
+  "estado" : 1,
+  "id" : 116,
+  "limite" : 10000,
+  "nombre" : "JURADO FELIPE ANTONIO",
+  "telefono" : ""
+}, {
+  "deuda" : 722.94,
+  "dias" : 7,
+  "domicilio" : "CARPANI COSTA 765",
+  "estado" : 1,
+  "id" : 117,
+  "limite" : 999999,
+  "nombre" : "ROSELLI FERNANDO",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "MONTEVIDEO 100 ( Y JUJUY )",
+  "estado" : 1,
+  "id" : 118,
+  "limite" : 999999,
+  "nombre" : "CORONEL DANIEL CESAR",
+  "telefono" : ""
+}, null, {
+  "deuda" : 507.35,
+  "dias" : 75,
+  "domicilio" : "L MORENO 232",
+  "estado" : 1,
+  "id" : 120,
+  "limite" : 10000,
+  "nombre" : "SOSA LILIANA",
+  "telefono" : "15600060"
+}, {
+  "deuda" : 16.13,
+  "dias" : 9,
+  "domicilio" : "PEDRO TORRES 100",
+  "estado" : 1,
+  "id" : 121,
+  "limite" : 10000,
+  "nombre" : "CORDERO,SANCHEZ Y GARCIA S.H.",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "P TORRES 297",
+  "estado" : 1,
+  "id" : 122,
+  "limite" : 999999,
+  "nombre" : "SAINT",
+  "telefono" : ""
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 10,
+  "domicilio" : "P TORRES 853",
+  "estado" : 1,
+  "id" : 124,
+  "limite" : 9999999,
+  "nombre" : "BENAVIDEZ JULIA",
+  "telefono" : ""
+}, {
+  "deuda" : 658.47,
+  "dias" : 60,
+  "domicilio" : "CUSTODIO DUARTE 380",
+  "estado" : 1,
+  "id" : 125,
+  "limite" : 10000,
+  "nombre" : "PONCE FABIAN RUBEN",
+  "telefono" : ""
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 30,
+  "domicilio" : "IRIGOYEN Y VENEZUELA",
+  "estado" : 1,
+  "id" : 127,
+  "limite" : 9999999,
+  "nombre" : "HOTEL TERRAZAS",
+  "telefono" : ""
+}, {
+  "deuda" : 118.7,
+  "dias" : 40,
+  "domicilio" : "RICHIERI E INTERNA.",
+  "estado" : 1,
+  "id" : 128,
+  "limite" : 10000,
+  "nombre" : "BASILICO YANINA.",
+  "telefono" : "431682"
+}, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "ARNOLD Y MERLINO 1089",
+  "estado" : 1,
+  "id" : 129,
+  "limite" : 9999999,
+  "nombre" : "LEAL MANUEL",
+  "telefono" : ""
+}, null, {
+  "deuda" : 498.66,
+  "dias" : 9,
+  "domicilio" : "CALLE 105 Nº 1648",
+  "estado" : 1,
+  "id" : 131,
+  "limite" : 10000,
+  "nombre" : "LEDESMA LETICIA",
+  "telefono" : "433755"
+}, null, null, null, null, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "IRLANDA 2160",
+  "estado" : 1,
+  "id" : 136,
+  "limite" : 0,
+  "nombre" : "MORALES RAMON",
+  "telefono" : ""
+}, {
+  "deuda" : 796.68,
+  "dias" : 9,
+  "domicilio" : "CHILAVERT 1797",
+  "estado" : 1,
+  "id" : 137,
+  "limite" : 10000,
+  "nombre" : "LOPEZ ALEJANDRA.",
+  "telefono" : "15312089"
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 7,
+  "domicilio" : "CALLE 101 Nº 1559",
+  "estado" : 1,
+  "id" : 139,
+  "limite" : 999999,
+  "nombre" : "MAGALLANES CINTIA",
+  "telefono" : "422816"
+}, {
+  "deuda" : 0.0,
+  "dias" : 15,
+  "domicilio" : "CALLE 122 Nº 2790",
+  "estado" : 1,
+  "id" : 140,
+  "limite" : 1000,
+  "nombre" : "BASUALDO MARIA LUJAN",
+  "telefono" : "15343876"
+}, null, {
+  "deuda" : 0.0,
+  "dias" : 9,
+  "domicilio" : "RICARDO JHON 1139",
+  "estado" : 1,
+  "id" : 142,
+  "limite" : 10000,
+  "nombre" : "RAIMUNDO CLAUDIA",
+  "telefono" : "15464154"
+}, {
+  "deuda" : 0.0,
+  "dias" : 10,
+  "domicilio" : "AGUSTIN ALVAREZ 997",
+  "estado" : 1,
+  "id" : 143,
+  "limite" : 999999,
+  "nombre" : "HOYOS SUSANA",
+  "telefono" : "15631335"
+}, null, null, {
+  "deuda" : 21.08,
+  "dias" : 10,
+  "domicilio" : "AMEGHINO 2177",
+  "estado" : 1,
+  "id" : 146,
+  "limite" : 10000,
+  "nombre" : "ROMERO DANIEL",
+  "telefono" : "432297"
+}, null, {
+  "deuda" : 2808.8,
+  "dias" : 15,
+  "domicilio" : "TUCUMAN Y N REPETO",
+  "estado" : 1,
+  "id" : 148,
+  "limite" : 30000,
+  "nombre" : "COOP DE EX TRABAJ DE SAN CAYETANO.",
+  "telefono" : "422022"
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "BELGRANO Y AVELLANEDA B EVITA CASA 56",
+  "estado" : 1,
+  "id" : 149,
+  "limite" : 0,
+  "nombre" : "PADOVAN VICTOR",
+  "telefono" : "2477-539831"
+}, {
+  "deuda" : 5160.0,
+  "dias" : 15,
+  "domicilio" : "LAS HERAS 777",
+  "estado" : 1,
+  "id" : 150,
+  "limite" : 99999,
+  "nombre" : "CAVALCABUE ARNALDO DARIO",
+  "telefono" : "02475-466427"
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "F DE ROJAS Y PUEBLO ORIGINARIO",
+  "estado" : 1,
+  "id" : 151,
+  "limite" : 0,
+  "nombre" : "BALDOMA ELVIRA",
+  "telefono" : ""
+}, {
+  "deuda" : 0.0,
+  "dias" : 0,
+  "domicilio" : "BELGRANO E ITALIA",
+  "estado" : 1,
+  "id" : 152,
+  "limite" : 0,
+  "nombre" : "DESPENSA ALONSO",
+  "telefono" : "02475-462056"
+} ]

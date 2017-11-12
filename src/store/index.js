@@ -10,9 +10,15 @@ import firebase from 'firebase'
 import vuexfire from 'vuexfire'
 import { firebaseAction } from 'vuexfire'
 import { firebaseMutations } from 'vuexfire'
-import createPersistedState from 'vuex-persistedstate'  //-- https://github.com/robinvdvleuten/vuex-persistedstate
+import { LocalStorage, SessionStorage } from 'quasar'
+import moment from 'moment'                  //-- tratamiento de fechas en pedidos
 
 Vue.use(Vuex)
+
+import db from '@/datasource.js'              //---  importo la conexion
+var clientesRef  = db.ref('clientes-chico')   //---  defino de manera glogal el acceso a la base 
+var productosRef = db.ref('productos-chico')  //     de clientes y productos.
+var pedidosRef = db.ref('pedidos')
 
 /* eslint-disable */
 const store = new Vuex.Store({
@@ -20,6 +26,7 @@ const store = new Vuex.Store({
 
         clientesList: [],
         productosList: [],
+        pedidosList: [],
 
         activateSearchClientes: false,
         activateSearchProductos: false,
@@ -29,36 +36,45 @@ const store = new Vuex.Store({
         },
         user: {},
 
-        prueba: {
-            domicilio: 'Av. San Martin 1444 - Buenos Aires',
-            estudio: {
-                nivel: 'terciario',
-                institucion: 'Instituto de Formacion'
-            }
-        }
+        deviceID: ''   //-- valor puesto arbitrariamente para probar LocalStorage de QUASAR 
     },
-    plugins: [createPersistedState({
-        key: 'todocerca',    //-- The key to store the persisted state under. (default: vuex)
-        path: [              //--  An array of any paths to partially persist the state. If no paths are given, the complete state is persisted
-            'state.prueba.domicilio',
-            'state.prueba.estudio.nivel'
-        ]
-    })],
     actions: {
         login(context) {
             context.commit('login')
         },
-        
-        setClientesRef: firebaseAction(({ bindFirebaseRef }, ref) => {
-            bindFirebaseRef('clientesList', ref, { wait: true })
+        setDatabaseRef: firebaseAction(({ bindFirebaseRef }) => {
+            bindFirebaseRef('clientesList', clientesRef, { wait: true })
+            bindFirebaseRef('productosList', productosRef, { wait: true })
+            bindFirebaseRef('pedidosList', pedidosRef, { wait: true })
         }),        
-        setProductosRef: firebaseAction(({ bindFirebaseRef }, ref) => {
-            bindFirebaseRef('productosList', ref, { wait: true })
-        })
+        
+        insertPedido(context, pedido){
+            context.commit('insertPedido', pedido)
+        }
     },
 
-    mutations: {
+    mutations: {      
         ...firebaseMutations,
+
+        setLocalStorage(state, payload){
+            console.log("Clave: " + payload.key)
+            console.log("Valor: " + payload.value)
+            LocalStorage.set(payload.key, payload.value)           
+        },
+        
+        getLocalStorageDeviceID(state){
+            state.deviceID=LocalStorage.get.item('DeviceID')
+            console.log("DeviceID: " + state.deviceID)            
+        },
+
+        insertPedido(state, pedido){
+            //-- El ID de cada pedido esta formado por el momento en que se graba
+            //   en el formato YYMMDDHHmmssMMM (con milisegundos).
+            //   Una vez capturado el timestamp ademas se fomatea y se asigna al atributo FECHA del pedido
+            var now = Number(moment().format('YYMMDDHHmmssSSS'));
+            pedido.fecha=moment(now.toString(), "YYMMDDHHmmssSSS").format("DD/MM/YY HH:mm")
+            pedidosRef.child(now).set(pedido);
+        },
         updateLayoutConf(state, payload) {
             state.layout = payload
         },
@@ -72,7 +88,8 @@ const store = new Vuex.Store({
 
     getters: {
         clientesList: state => state.clientesList,
-        productosList: state => state.productosList
+        productosList: state => state.productosList,
+        pedidosList: state => state.pedidosList
     },
 })
 

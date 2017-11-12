@@ -54,10 +54,10 @@ export default {
     }
   },
   activated() {
-    updateLayout()
+    this.updateLayout()
   },
   beforeMount() {
-    updateLayout()
+    this.updateLayout()
   },
   mounted() {
      console.log("Lista de Productos montado") 

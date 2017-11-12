@@ -72,9 +72,9 @@
     QItem,QItemSeparator,QItemTile
   } from 'quasar'
  
-  import db from '@/datasource.js'             //---  importo la conexion
-  var clientesRef  = db.ref('clientes-chico')   //---  defino de manera glogal el acceso a la base 
-  var productosRef = db.ref('productos-chico')  //     de clientes y productos.
+//  import db from '@/datasource.js'             //---  importo la conexion
+//  var clientesRef  = db.ref('clientes-chico')   //---  defino de manera glogal el acceso a la base 
+//  var productosRef = db.ref('productos-chico')  //     de clientes y productos.
 
   export default {
     components: { 
@@ -88,10 +88,11 @@
       }
     },
     created() {
-      //-- Ni bien se crea la app ejecuto el action pasandole la referencia de acceso 
-      //   a la base de datos que trae Clientes ("clientessRef") y Productos ("productosRef")
-      this.$store.dispatch('setClientesRef', clientesRef) 
-      this.$store.dispatch('setProductosRef', productosRef) 
+      //-- Ni bien se crea la app ejecuto el action que bindea todas las collection de la base de datos
+      this.$store.dispatch('setDatabaseRef') 
+
+      //--  Este es un MUTATION solo para probar como se guarda algo en el LocalStorage
+      this.$store.commit('getLocalStorageDeviceID')
     },
     methods: {
       toggleSearchBar () {
