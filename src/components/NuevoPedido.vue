@@ -9,7 +9,7 @@
             <q-item-tile label>{{ prod.label }}</q-item-tile>
             <q-item-tile sublabel>{{ prod.qty }} unidades</q-item-tile>
           </q-item-main>
-          <q-item-side right class="text-bold">$ {{ prod.price * prod.qty }}</q-item-side>
+          <q-item-side right class="text-bold">{{ prod.price * prod.qty | currency }}</q-item-side>
           <q-item-side right>
             <q-btn flat small round color="dark">
               <q-icon name="edit" />
@@ -27,7 +27,7 @@
             <q-item-tile label>Total</q-item-tile>
             <q-item-tile sublabel>en {{ pedido.length }} productos</q-item-tile>
           </q-item-main>
-          <q-item-side right class="text-bold">$ {{ totalPedido }}</q-item-side>
+          <q-item-side right class="text-bold">{{ totalPedido | currency }}</q-item-side>
           <q-item-side right></q-item-side>
           <q-item-side right></q-item-side>
         </q-item>
@@ -46,7 +46,7 @@
           <tr v-for="(prod,key) in pedido" :key="key">
             <td>{{ prod.label }}</td>
             <td class="text-right">{{ prod.qty }}</td>
-            <td class="text-right">{{ prod.qty * prod.price }}</td>
+            <td class="text-right">{{ prod.qty * prod.price |currency }}</td>
             <td class="text-right">
               <q-btn flat small round>
                 <q-icon name="edit" />
@@ -122,19 +122,19 @@
             <div class="row items-center" v-show="this.promo > 0">
               <div class="col">Subtotal</div>
               <div class="col-auto">
-                {{ subtotal }}
+                {{ subtotal | currency }}
               </div>
             </div>
             <div class="row items-center" v-show="this.promo > 0">
               <div class="col">Descuento</div>
               <div class="col-auto">
-                -{{ descuento }}
+                {{ descuento | currency }}
               </div>
             </div>
             <div class="row items-center">
               <div class="col">Total</div>
               <div class="col-auto">
-                {{ total }}
+                {{ total | currency }}
               </div>
             </div>
           </template>
@@ -229,7 +229,7 @@ export default {
           icon: (product.stock > 0 ? "add_shopping_cart" : "not_interested"),
           leftColor: (product.stock > 0 ? "primary" : "faded"),
           rightColor: (product.stock > 0 ? "primary" : "faded"),
-          stamp: "$ " + product.precio,
+          stamp: this.$options.filters.currency(product.precio),
           value: product.descripcion,
           price: product.precio,
           id: product.id,
