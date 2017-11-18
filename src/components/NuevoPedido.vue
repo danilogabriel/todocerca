@@ -20,13 +20,20 @@
           <!-- <q-item-side icon="free_breakfast" inverted color="primary"></q-item-side> -->
           <q-item-main>
             <q-item-tile label>
-              <div style="color: #757575">
-                <small>
-                  <strong>{{ prod.qty }}</strong> unidad{{ prod.qty == 1 ? '' : 'es'}} 
-                  <span v-show="prod.promo > 0">| {{ prod.promo }} bonificada{{ prod.promo == 1 ? '' : 's'}}</span>
-                </small>
-              </div>
               <div>{{ prod.label }}</div>
+              <small>
+              <div class="row items-center" style="color: #757575">
+                <div class="col-4">
+                  <strong>{{ prod.qty }}</strong> unidad{{ prod.qty == 1 ? '' : 'es'}} 
+                </div>
+                <div class="col-auto">
+                  <q-icon name="star" color="amber-9" size="1.2rem"></q-icon>
+                </div>
+                <div v-show="prod.promo > 0" class="col">
+                  {{ prod.promo }} bonificada{{ prod.promo == 1 ? '' : 's'}}
+                </div>
+              </div>
+              </small>
             </q-item-tile>
             <q-item-tile sublabel>
                 <!-- <div>Precio unitario <strong>{{ prod.price | currency }}</strong></div> -->
@@ -72,77 +79,96 @@
           <q-autocomplete :min-characters="3" @selected="selected" :filter="myFilter" :static-data="{field: 'value', list: parsedProducts}"/>
         </q-search>
         <template v-if="productSelected">
-          <q-list border>
-            <q-item>
-              <q-item-side icon="free_breakfast" inverted color="primary"></q-item-side>
-              <q-item-main>
-                <q-item-tile label>{{ productSelectedDetail.label }}</q-item-tile>
-                <q-item-tile sublabel>{{ productSelectedDetail.sublabel }}</q-item-tile>
-              </q-item-main>
-              <q-item-side right class="text-bold">{{ productSelectedDetail.stamp }}</q-item-side>
-            </q-item>
-          </q-list>
+          <q-card flat color="dark">
+            <q-list>
+              <q-item>
+                <q-item-side icon="free_breakfast" inverted color="primary"></q-item-side>
+                <q-item-main>
+                  <q-item-tile label>{{ productSelectedDetail.label }}</q-item-tile>
+                  <q-item-tile sublabel>{{ productSelectedDetail.sublabel }}</q-item-tile>
+                </q-item-main>
+                <q-item-side right class="text-bold" color="white">{{ productSelectedDetail.stamp }}</q-item-side>
+              </q-item>
+            </q-list>
+          </q-card>
 
           <q-alert v-show="productSelectedDetail.stock == 0" color="negative"
               style="margin-top: 1.5rem; margin-bottom: 1.5rem">Artículo sin stock, por favor elegí otro</q-alert>
 
           <template v-if="productSelectedDetail.stock > 0">
-
-            <div class="row items-center">
-              <!-- <div class="col">Cantidad</div> -->
+            <div class="row lg-gutter">
               <div class="col">
+                <h5>
+                  <q-icon name="format_list_numbered" color="primary"></q-icon>
+                  Cantidad
+                </h5>
+                <q-input type="text" v-model="qty" />
+              </div>
+              <div class="col">
+                <h5>
+                  <q-icon name="star" color="amber-9"></q-icon>
+                  Promoción
+                </h5>
+                <q-input type="text" v-model="promo" />
+              </div>
+            </div>
+
+            <!-- <div class="row items-center"> -->
+              <!-- <div class="col">Cantidad</div> -->
+              <!-- <div class="col"> -->
                 <!-- <q-input type="number" :min="1" :max="productSelectedDetail.stock" v-model="qty" /> -->
-                <q-field icon="format_list_numbered" label="Cantidad">
-                  <q-slider v-if="productSelectedDetail.stock != 1" 
+                <!-- <q-field icon="format_list_numbered" label="Cantidad"> -->
+                  <!-- <q-slider v-if="productSelectedDetail.stock != 1" 
                     v-model="qty" :min="1" :max="productSelectedDetail.stock" />
                 </q-field>
               </div>
               <div class="col-2  text-right">
-                <q-input type="number" v-model="qty" :min="1" :max="productSelectedDetail.stock" />
+                <q-input type="number" v-model="qty" :min="1" :max="productSelectedDetail.stock" /> -->
                 <!-- <q-chip color="primary">{{qty}}</q-chip> -->
-              </div>
+              <!-- </div>
             </div>
-            <div class="row items-center">
+            <div class="row items-center"> -->
               <!-- <div class="col">Promoción</div> -->
-              <div class="col">
+              <!-- <div class="col">
                 <q-field icon="star" label="Promoción">
                   <q-slider v-model="promo" :min="0" :max="qty" />
-                </q-field>
+                </q-field> -->
                 <!-- <q-input type="number" :min="0" :max="qty" v-model="promo" /> -->
-              </div>
-              <div class="col-2 text-right">
+              <!-- </div>
+              <div class="col-2 text-right"> -->
                 <!-- <q-chip color="primary">{{promo}}</q-chip> -->
-                <q-input type="number" v-model="promo" :min="0" :max="qty" />
+                <!-- <q-input type="number" v-model="promo" :min="0" :max="qty" />
               </div>
-            </div>
-            <div class="row items-center" v-show="this.promo > 0">
-              <div class="col">Subtotal</div>
-              <div class="col-auto">
-                {{ subtotal | currency }}
-              </div>
-            </div>
-            <div class="row items-center" v-show="this.promo > 0">
-              <div class="col">Descuento</div>
-              <div class="col-auto">
-                {{ descuento | currency }}
-              </div>
-            </div>
-            <div class="row items-center">
-              <div class="col">Total</div>
-              <div class="col-auto">
-                {{ total | currency }}
-              </div>
-            </div>
+            </div> -->
+            <q-card>
+              <q-card-main v-show="this.promo > 0">
+                <div class="row items-center lg-gutter">
+                  <div class="col">Subtotal</div>
+                  <div class="col-auto">{{ subtotal | currency }}</div>
+                </div>
+                <div class="row items-center">
+                  <div class="col">Descuento</div>
+                  <div class="col-auto">{{ descuento | currency }}</div>
+                </div>
+              </q-card-main>
+              <q-card-separator v-show="this.promo > 0" />
+              <q-card-main>
+                <div class="row items-center">
+                  <div class="col">
+                    <h6>Total</h6>
+                  </div>
+                  <div class="col-auto">
+                    <h6>{{ total | currency }}</h6>
+                  </div>
+                </div>
+              </q-card-main>
+            </q-card>
           </template>
         </template>
 
-        <div class="row">
-          <div class="col">
+        <div class="group text-right">
             <q-btn @click="$refs.modalAddProducto.close()">Cancelar</q-btn>
-          </div>
-          <div class="col text-right">
             <q-btn color="primary" :disabled="!productSelected || productSelectedDetail.stock == 0" @click="agregarProducto">Agregar</q-btn>
-          </div>
         </div>
       </q-modal>
 
@@ -151,14 +177,14 @@
 
 <script>
 import {
-  QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert
+  QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert, QCard, QCardMain, QCardSeparator
 } from 'quasar'
 import { mapState } from 'vuex'
 
 export default {
   name: 'NuevoPedido',
   components: {
-    QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert
+    QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert, QCard, QCardMain, QCardSeparator
   },
   activated() {
     let config = {
@@ -171,16 +197,14 @@ export default {
 
     // this.updateFooter()
   },
-  data() {
-    return {
+  data: () => ({
       productoFilter: "",
       pedido: [],
       qty: 1,
       promo: 0,
       productSelected: false,
       productSelectedDetail: {}
-    }
-  },
+  }),
   methods: {
     myFilter(terms, { field, list }) {
       const token = terms.toLowerCase()
@@ -223,7 +247,7 @@ export default {
   },
   computed: {
     ...mapState(['productosList']),
-    parsedProducts: function() {
+    parsedProducts() {
       return this.productosList.map(product => {
         let color = product.stock > 0 ? "primary" : "faded"
         return {
@@ -240,21 +264,21 @@ export default {
         }
       })
     },
-    totalPedido: function() {
+    totalPedido() {
       return this.pedido.reduce(function (sum, prod) {
           return sum + ( prod.price * prod.qty );
         }, 0);
     },
-    idCliente: function() {
+    idCliente() {
       return this.$route.params.id
     },
-    subtotal: function() {
+    subtotal() {
       return this.productSelectedDetail.price * this.qty
     },
-    descuento: function() {
+    descuento() {
       return this.productSelectedDetail.price * this.promo
     },
-    total: function() {
+    total() {
       return this.subtotal - this.descuento
     },
   }
