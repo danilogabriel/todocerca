@@ -38,11 +38,6 @@ const store = new Vuex.Store({
             footer: false
         },
 
-        footerText: {
-            left: "",
-            right: ""
-        },
-
         user: {},
 
         deviceID: ''   //-- valor puesto arbitrariamente para probar LocalStorage de QUASAR 
@@ -90,10 +85,10 @@ const store = new Vuex.Store({
             state.layout.cancel = payload.cancel || false
             state.layout.footer = payload.footer || false
         },
-        updateFooterText(state, payload) {
-            state.footerText.left = payload.left || ""
-            state.footerText.right = payload.right || ""
-        },
+        // updateFooterText(state, payload) {
+        //     state.footerText.left = payload.left || ""
+        //     state.footerText.right = payload.right || ""
+        // },
         toggleSearchBar(state){
             //----- state.route.path: propiedad que crea y mantiene la libreria 'vuex-router-sync' (main)
             console.log(state.route.path)

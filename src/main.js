@@ -36,7 +36,7 @@ Vue.filter('currency', function (value) {
   var digitsRE = /(\d{3})(?=\d)/g
   value = parseFloat(value)
   if (!isFinite(value) || (!value && value !== 0)) return ''
-  var currency = '$ '
+  var currency = '$'
   var decimals = 2
   var stringified = Math.abs(value).toFixed(decimals)
   var _int = decimals

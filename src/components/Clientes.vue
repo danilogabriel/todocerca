@@ -1,7 +1,6 @@
 <template>
    <section> 
     <!-------------- Search -------------->
-    <q-slide-transition>
       <q-toolbar color="primary" id="filterBar"
           v-show="activateSearchClientes">
         <q-search inverted ref="filterRef"
@@ -18,7 +17,6 @@
           placeholder="Buscar..."
         />
       </q-toolbar>
-    </q-slide-transition>
     <!------------ Lista Productos ---------->
     <q-list inset-separator no-border link>
         <q-item :to="'/clientedetail/' + cli['.key']" v-for="(cli,key) in filteredShops" :key="key">

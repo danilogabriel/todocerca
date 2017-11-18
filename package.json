@@ -16,6 +16,7 @@
     "chart.js": "^2.7.1",
     "chartkick": "^2.2.4",
     "firebase": "^4.6.0",
+    "frappe-charts": "0.0.6",
     "md5": "^2.2.1",
     "moment": "^2.19.2",
     "promise-polyfill": "^6.0.2",

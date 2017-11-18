@@ -56,9 +56,10 @@
         <router-view />
       </keep-alive>
    
-      <q-toolbar slot="footer" v-if="layout.footer">
-          <div class="col">{{footerText.left}}</div>
-          <div class="col text-right">{{footerText.right}}</div>
+      <q-toolbar slot="footer" v-if="layout.footer" color="amber-9" class="text-dark">
+          <!-- <div class="col">{{footerText.left}}</div> -->
+          <!-- <div class="col text-right">Total</div> -->
+          <q-btn flat color="none" class="full-width">Finalizar pedido ($0,00)</q-btn>
       </q-toolbar> 
   
     </q-layout>
@@ -117,7 +118,7 @@
       }
     },
     computed: {
-      ...mapState(['layout', 'footerText']),
+      ...mapState(['layout']),
     }
   }
   </script>

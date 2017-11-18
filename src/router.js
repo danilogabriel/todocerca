@@ -34,13 +34,18 @@ export default new VueRouter({
    */
 
   routes: [
-    { path: '/pedidos', component: Pedidos },
-    { path: '/clientes', component: Clientes },
+    { path: '/', component: Resumen },
     
+    { path: '/resumen', component: Resumen },
+    
+    { path: '/clientes', component: Clientes },
     { path: '/clientedetail/:id', component: ClienteDetail },
+    
+    { path: '/pedidos', component: Pedidos },
     { path: '/nuevopedido/:id', component: NuevoPedido },
 
     { path: '/productos', component: Productos },
-    { path: '/resumen', component: Resumen }
+    
+    
   ]
 })

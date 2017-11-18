@@ -1,39 +1,50 @@
 <template>
-  <div class="layout-padding">
-      <div>Nuevo Pedido de Cliente ID: {{ idCliente }}</div>
-      <div>Detalle del pedido</div>
-      <q-list inset-separator no-border>
+  <div>
+      <q-toolbar color="primary">
+        <q-toolbar-title>
+          Cliente ID: {{ idCliente }}
+        </q-toolbar-title>
+      </q-toolbar>
+      <!-- <div>Nuevo Pedido de Cliente ID: {{ idCliente }}</div> -->
+      <div class="fullscreen row items-center justify-center" style="color: #757575">
+          <div class="col-auto text-center">
+            <q-icon name="shopping_basket" size="9rem"/>
+            <h6>Aún no hay ningún producto agregado</h6>
+            <div>Para comenzar tocá el botón <q-chip color="orange">+</q-chip></div>
+            <div>que está abajo a tu derecha</div>
+          </div>
+      </div>
+      <q-list separator no-border v-show="pedido.lenght > 1">
+        <q-list-header>Detalle del pedido</q-list-header>
         <q-item v-for="(prod,key) in pedido" :key="key">
-          <q-item-side icon="free_breakfast" inverted color="primary"></q-item-side>
+          <!-- <q-item-side icon="free_breakfast" inverted color="primary"></q-item-side> -->
           <q-item-main>
-            <q-item-tile label>{{ prod.label }}</q-item-tile>
-            <q-item-tile sublabel>{{ prod.qty }} unidades</q-item-tile>
+            <q-item-tile label>
+              <div style="color: #757575">
+                <small>
+                  <strong>{{ prod.qty }}</strong> unidad{{ prod.qty == 1 ? '' : 'es'}} 
+                  <span v-show="prod.promo > 0">| {{ prod.promo }} bonificada{{ prod.promo == 1 ? '' : 's'}}</span>
+                </small>
+              </div>
+              <div>{{ prod.label }}</div>
+            </q-item-tile>
+            <q-item-tile sublabel>
+                <!-- <div>Precio unitario <strong>{{ prod.price | currency }}</strong></div> -->
+              <!-- <div class="row"> -->
+                <!-- <div class="col">{{ prod.qty }} unidad{{ prod.qty == 1 ? '' : 'es'}}</div> -->
+                <!-- <div class="col">{{ prod.promo }} bonificadas</div> -->
+              <!-- </div> -->
+            </q-item-tile>
           </q-item-main>
-          <q-item-side right class="text-bold">{{ prod.price * prod.qty | currency }}</q-item-side>
-          <q-item-side right>
-            <q-btn flat small round color="dark">
-              <q-icon name="edit" />
-            </q-btn>
+          <q-item-side right class="text-nowrap">
+            <div><small>{{ prod.price | currency }} x {{ prod.qty - prod.promo }}</small></div>
+            <div class="text-bold text-primary">{{ prod.price * ( prod.qty - prod.promo ) | currency }}</div>
+            <!-- <div><small>{{ prod.qty }} x {{ prod.price | currency }}</small></div> -->
           </q-item-side>
-          <q-item-side right>
-            <q-btn flat small round color="negative">
-              <q-icon name="close" />
-            </q-btn>
-          </q-item-side>
-        </q-item>
-        <q-item>
-          <q-item-side icon="shopping_basket" inverted color="dark"></q-item-side>
-          <q-item-main>
-            <q-item-tile label>Total</q-item-tile>
-            <q-item-tile sublabel>en {{ pedido.length }} productos</q-item-tile>
-          </q-item-main>
-          <q-item-side right class="text-bold">{{ totalPedido | currency }}</q-item-side>
-          <q-item-side right></q-item-side>
-          <q-item-side right></q-item-side>
         </q-item>
       </q-list>
 
-      <table class="q-table striped-even" width="100%">
+      <!-- <table class="q-table striped-even" width="100%">
         <thead>
           <tr>
             <th>Producto</th>
@@ -47,23 +58,9 @@
             <td>{{ prod.label }}</td>
             <td class="text-right">{{ prod.qty }}</td>
             <td class="text-right">{{ prod.qty * prod.price |currency }}</td>
-            <td class="text-right">
-              <q-btn flat small round>
-                <q-icon name="edit" />
-              </q-btn>
-              <q-btn flat small round color="negative">
-                <q-icon name="close" />
-              </q-btn>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-bold">TOTAL</td>
-            <td class="text-right">{{ pedido.length }}</td>
-            <td class="text-right">{{ totalPedido | currency}}</td>
-            <td></td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
 
       <q-fixed-position corner="bottom-right" :offset="[18, 18]">
         <q-btn round icon="add" color="orange" class="animate-pop" @click="addProducto()"/>
@@ -72,8 +69,7 @@
       <q-modal ref="modalAddProducto" maximized position="bottom" :content-css="{padding: '20px'}">
         <h5>Agregar Producto</h5>
         <q-search autofocus ref="productFilterRef" v-model="productoFilter" placeholder="Buscar producto" @change="checkInput">
-          <!-- <q-autocomplete @search="search" @selected="selected" /> -->
-          <q-autocomplete :min-characters="3" @selected="selected" :static-data="{field: 'value', list: parsedProducts}"/>
+          <q-autocomplete :min-characters="3" @selected="selected" :filter="myFilter" :static-data="{field: 'value', list: parsedProducts}"/>
         </q-search>
         <template v-if="productSelected">
           <q-list border>
@@ -155,14 +151,14 @@
 
 <script>
 import {
-  QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QItem, QItemSide, QItemMain, QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert
+  QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert
 } from 'quasar'
 import { mapState } from 'vuex'
 
 export default {
   name: 'NuevoPedido',
   components: {
-    QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QItem, QItemSide, QItemMain, QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert
+    QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert
   },
   activated() {
     let config = {
@@ -173,7 +169,7 @@ export default {
     }
     this.$store.commit('updateLayoutConf', config)
 
-    this.updateFooter()
+    // this.updateFooter()
   },
   data() {
     return {
@@ -186,6 +182,12 @@ export default {
     }
   },
   methods: {
+    myFilter(terms, { field, list }) {
+      const token = terms.toLowerCase()
+      return list.filter(item => {
+        return item[field].toLowerCase().indexOf(token) >= 0
+      })
+    },
     addProducto() {
       this.$refs.modalAddProducto.open()
       this.$refs.productFilterRef.focus()
@@ -208,16 +210,16 @@ export default {
       this.pedido.push(this.productSelectedDetail)
       this.$refs.productFilterRef.clear()
       this.$refs.modalAddProducto.close()
-      this.updateFooter()
+      // this.updateFooter()
     },
-    updateFooter() {
-      let footer = {
-        left: this.pedido.length + " producto" + (this.pedido.length != 1 ? "s" : ""),
-        right: "TOTAL: " + this.$options.filters.currency(this.totalPedido)
-      }
+    // updateFooter() {
+    //   let footer = {
+    //     left: this.pedido.length + " producto" + (this.pedido.length != 1 ? "s" : ""),
+    //     right: "TOTAL: " + this.$options.filters.currency(this.totalPedido)
+    //   }
 
-      this.$store.commit('updateFooterText', footer)
-    }
+    //   this.$store.commit('updateFooterText', footer)
+    // }
   },
   computed: {
     ...mapState(['productosList']),
