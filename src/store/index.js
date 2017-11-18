@@ -38,9 +38,8 @@ const store = new Vuex.Store({
             footer: false
         },
 
-        user: {},
-
-        deviceID: ''   //-- valor puesto arbitrariamente para probar LocalStorage de QUASAR 
+        user: null,    //-- Se pide por unica vez la primera vez que no este guardado en el localStor
+        deviceID: ''   //-- cuando se guarden los pedidos se agregara el ID de Dispositivo y User
     },
     actions: {
         login(context) {
@@ -60,10 +59,9 @@ const store = new Vuex.Store({
     mutations: {      
         ...firebaseMutations,
 
-        setLocalStorage(state, payload){
-            console.log("Clave: " + payload.key)
-            console.log("Valor: " + payload.value)
-            LocalStorage.set(payload.key, payload.value)           
+        setUserAndDeviceID(state, userAndDevice){
+            state.user = userAndDevice.user
+            state.deviceID = userAndDevice.deviceID
         },
         
         getLocalStorageDeviceID(state){

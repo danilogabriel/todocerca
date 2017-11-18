@@ -69,8 +69,9 @@
   <script>
   import firebase from 'firebase'
   import { mapState } from 'vuex'
+  import { LocalStorage, SessionStorage } from 'quasar'
   import {
-    QSearch,
+    Dialog,Toast , QSearch,
     QLayout,QFixedPosition, QToolbar,QToolbarTitle,QBtn,QIcon,QItemSide,QItemMain,QSideLink,QListHeader,QList,
     QItem,QItemSeparator,QItemTile
   } from 'quasar'
@@ -81,23 +82,80 @@
 
   export default {
     components: { 
+      Dialog, Toast,
       QSearch,
       QLayout,QFixedPosition, QToolbar,QToolbarTitle,QBtn,QIcon,QItemSide,QItemMain,QSideLink,QListHeader,QList,
       QItem,QItemSeparator,QItemTile},
     name:'app',
     data () {
       return {
-  
+        usuarioSolicitado: ''       
+      }
+    },
+    mounted() {
+      if (LocalStorage.has('todoCerca.DeviceID')) {
+        var userAndDevice = { 
+                              user: '', 
+                              deviceID: '' 
+        } 
+        userAndDevice.user = SessionStorage.get.item(userAndDevice.User) 
+        userAndDevice.deviceID = SessionStorage.get.item(userAndDevice.DeviceID)
+        this.$store.commit('setUserAndDeviceID', userAndDevice)        
+      } else {
+         this.pedirUsuario()
       }
     },
     created() {
       //-- Ni bien se crea la app ejecuto el action que bindea todas las collection de la base de datos
       this.$store.dispatch('setDatabaseRef') 
-
-      //--  Este es un MUTATION solo para probar como se guarda algo en el LocalStorage
-      this.$store.commit('getLocalStorageDeviceID')
     },
     methods: {
+      pedirUsuario() {
+        Dialog.create({
+          noBackdropDismiss: true,
+          noEscDismiss: true,
+          title: 'Identificacion',
+          message: 'Ingrese por unica vez su nombre de usuario',
+          form: {
+            usuario: {
+              type: 'text',
+              label: 'Nombre de Usuario',
+              model: ''
+            }
+          },
+          buttons: [  { 
+                        label: 'Ok',
+                        preventClose: true,
+                        handler: (data, close) => {
+                            //  Using ES6 arrow functions 
+                            //  now "this" points to the method's outer JS scope,
+                            //  in this case your Vue component scope
+                            //  With handler() {   }  SIN ARROW FUNCTION
+                            // "this" refers to the scope of this method only,
+                            //  not your Vue component
+                            if (!data.usuario.length) {
+                                Toast.create.warning('Debe ingresar un nombre')
+                                return
+                            }
+                            close()
+                            this.setUserAndDeviceID(data.usuario)
+                        }
+                      }
+          ]
+        })
+      },
+      setUserAndDeviceID(usuario) {
+        var userAndDevice = { 
+                              user: '', 
+                              deviceID: '' 
+        } 
+        userAndDevice.deviceID = 'XXX-999'
+        userAndDevice.user = usuario
+        console.log('El usuario cargado es: ' + userAndDevice.user)          
+        LocalStorage.set('todoCerca.User', userAndDevice.user)
+        LocalStorage.set('todoCerca.DeviceID', userAndDevice.deviceID)
+        this.$store.commit('setUserAndDeviceID', userAndDevice)
+      },
       cancelar() {
         this.$router.go(-1)
       },

@@ -13,9 +13,7 @@
           <q-btn outline icon="add" class="full-width" color="primary" @click="setDeviceId()">
             Nuevo pedido
           </q-btn>
-          <q-btn class="full-width" color="primary" @click="setDeviceId()">
-            Set LocalStorage DeviceID
-          </q-btn>
+
           <q-btn class="full-width" color="primary" @click="insertPedido()">
             Insert pedido 
           </q-btn>
