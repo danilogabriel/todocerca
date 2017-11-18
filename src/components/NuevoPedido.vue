@@ -6,7 +6,7 @@
         </q-toolbar-title>
       </q-toolbar>
       <!-- <div>Nuevo Pedido de Cliente ID: {{ idCliente }}</div> -->
-      <div class="fullscreen row items-center justify-center" style="color: #757575">
+      <div v-if="pedido.length == 0" class="row items-center justify-center" style="margin-top: 18%; color: #757575">
           <div class="col-auto text-center">
             <q-icon name="shopping_basket" size="9rem"/>
             <h6>Aún no hay ningún producto agregado</h6>
@@ -14,7 +14,7 @@
             <div>que está abajo a tu derecha</div>
           </div>
       </div>
-      <q-list separator no-border v-show="pedido.lenght > 1">
+      <q-list separator no-border v-else>
         <q-list-header>Detalle del pedido</q-list-header>
         <q-item v-for="(prod,key) in pedido" :key="key">
           <!-- <q-item-side icon="free_breakfast" inverted color="primary"></q-item-side> -->
