@@ -17,7 +17,6 @@
       <q-list separator no-border v-else>
         <q-list-header>Detalle del pedido</q-list-header>
         <q-item v-for="(prod,key) in pedido" :key="key">
-          <!-- <q-item-side icon="free_breakfast" inverted color="primary"></q-item-side> -->
           <q-item-main>
             <q-item-tile label>{{ prod.label }}</q-item-tile>
             <q-item-tile sublabel>
@@ -48,7 +47,7 @@
 
       <q-modal ref="modalAddProducto" maximized position="bottom" :content-css="{padding: '20px'}" @open="$refs.productFilterRef.focus()">
         <h5>Agregar Producto</h5>
-        <q-search autofocus ref="productFilterRef" v-model="productoFilter" placeholder="Buscar producto" @change="checkInput">
+        <q-search ref="productFilterRef" v-model="productoFilter" placeholder="Buscar producto" @change="checkInput">
           <q-autocomplete :min-characters="3" @selected="selected" :filter="myFilter" :static-data="{field: 'value', list: parsedProducts}"/>
         </q-search>
         <template v-if="productSelected">
@@ -72,35 +71,45 @@
               <q-card-main>
                 <div class="row lg-gutter">
                   <div class="col">
-                    <h6>
+                    <!-- <h6>
                       <q-icon name="format_list_numbered" color="primary" size="1.3rem"></q-icon>
                       Cantidad
                     </h6>
-                    <q-input type="text" v-model="qty" />
+                    <q-input type="text" autofocus v-model="qty" /> -->
+                    <q-field
+                      label="Cantidad"
+                      icon="format_list_numbered"
+                      :label-width="4"
+                    >
+                      <q-input type="text" autofocus v-model="qty" />
+                    </q-field>
                   </div>
                   <div class="col">
-                    <h6>
+                    <!-- <h6>
                       <q-icon name="star" color="amber-9" size="1.3rem"></q-icon>
                       Promoción
                     </h6>
-                    <q-input type="text" v-model="promo" />
+                    <q-input type="text" v-model="promo" /> -->
+                    <q-field
+                      label="Promoción"
+                      icon="star"
+                      :label-width="4"
+                    >
+                      <q-input type="text" v-model="promo" />
+                    </q-field>
                   </div>
                 </div>
               </q-card-main>
-              <q-card-main v-show="!validForm" class="bg-red-4">{{ this.errorMsg }}</q-card-main>
+              <q-card-main v-show="!validForm && errorMsg.length > 0" class="bg-red-4">{{ this.errorMsg }}</q-card-main>
             </q-card>
             <q-card flat color="blue-grey-2" class="text-dark">
               <template v-if="this.promo > 0">
                 <q-card-main>
                   <div class="row items-center lg-gutter">
                     <div class="col">Subtotal</div>
-                    <div class="col-auto">{{ subtotal | currency }}</div>
-                  </div>
-                </q-card-main>
-                <q-card-main>
-                  <div class="row items-center">
+                    <div class="col-auto strong">{{ subtotal | currency }}</div>
                     <div class="col">Descuento</div>
-                    <div class="col-auto">{{ descuento | currency }}</div>
+                    <div class="col-auto strong">{{ descuento | currency }}</div>
                   </div>
                 </q-card-main>
                 <q-card-separator />
@@ -120,8 +129,8 @@
         </template>
 
         <div class="group text-right">
-            <q-btn @click="$refs.modalAddProducto.close()">Cancelar</q-btn>
-            <q-btn color="primary" :disabled="!validForm" @click="agregarProducto">Agregar</q-btn>
+            <q-btn flat @click="$refs.modalAddProducto.close()">Cancelar</q-btn>
+            <q-btn icon="add" color="primary" :disabled="!validForm" @click="agregarProducto">Agregar</q-btn>
         </div>
       </q-modal>
 
@@ -153,7 +162,7 @@ export default {
   data: () => ({
       productoFilter: "",
       pedido: [],
-      qty: 1,
+      qty: null,
       promo: 0,
       productSelected: false,
       productSelectedDetail: {},
@@ -192,13 +201,16 @@ export default {
   computed: {
     ...mapState(['productosList']),
     validForm() {
+      if (this.qty.length == 0) this.errorMsg = ''
       if (!this.productSelected) return false
       if (this.productSelectedDetail.stock == 0) return false
+      if (!this.isNumber(this.qty)) return false
+
       if (this.qty > this.productSelectedDetail.stock) {
         this.errorMsg = "La cantidad pedida no puede superar el stock diponible para el artículo seleccionado"
         return false
       }
-      if (this.qty <= 0 || this.qty == '') {
+      if (this.qty <= 0 && this.isNumber(this.qty)) {
         this.errorMsg = "La cantidad pedida debe ser un número positivo"
         return false
       }
@@ -206,12 +218,12 @@ export default {
         this.errorMsg = "La cantidad bonificada debe ser cero o un número positivo"
         return false
       }
-      if (this.qty < this.promo) { 
+      if (this.isNumber(this.qty) && this.qty < this.promo) { 
         this.errorMsg = "La cantidad pedida no puede ser menor a la bonificada"
         return false
       }
-      if (!this.isNumber(this.qty) || !this.isNumber(this.promo)) {
-        this.errorMsg = "La cantidad pedida o la cantidad bonificada deben ser números"
+      if (!this.isNumber(this.promo)) {
+        this.errorMsg = "La cantidad bonificada deben ser números"
         return false
       }
 
@@ -223,7 +235,7 @@ export default {
         let color = product.stock > 0 ? "primary" : "faded"
         return {
           label: product.descripcion,
-          sublabel: product.id + ( product.stock == 0 ? ' - ARTÍCULO SIN STOCK' : ' - Stock: ' + product.stock ),
+          sublabel: product.id + ( product.stock == 0 ? ' - ARTÍOC' : ' - Stock: ' + product.stock),
           icon: "add_shopping_cart",
           leftColor: color,
           rightColor: color,
