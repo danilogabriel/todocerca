@@ -26,7 +26,7 @@
         <q-item>
           <q-item-side icon="person" inverted color="primary"/>
           <q-item-main>
-            <q-item-tile label>Nombre del vendedor</q-item-tile>
+            <q-item-tile label>{{ user }}</q-item-tile>
             <q-item-tile sublabel>Cerrar sesión</q-item-tile>
           </q-item-main>
         </q-item>
@@ -69,11 +69,11 @@
   <script>
   import firebase from 'firebase'
   import { mapState } from 'vuex'
-  import { LocalStorage, SessionStorage } from 'quasar'
+  import { LocalStorage } from 'quasar'
   import {
-    Dialog,Toast , QSearch,
-    QLayout,QFixedPosition, QToolbar,QToolbarTitle,QBtn,QIcon,QItemSide,QItemMain,QSideLink,QListHeader,QList,
-    QItem,QItemSeparator,QItemTile
+    Dialog, Toast, QSearch,
+    QLayout, QFixedPosition, QToolbar, QToolbarTitle, QBtn, QIcon, QItemSide, QItemMain, QSideLink, QListHeader, QList,
+    QItem, QItemSeparator, QItemTile
   } from 'quasar'
  
 //  import db from '@/datasource.js'             //---  importo la conexion
@@ -82,24 +82,22 @@
 
   export default {
     components: { 
-      Dialog, Toast,
-      QSearch,
-      QLayout,QFixedPosition, QToolbar,QToolbarTitle,QBtn,QIcon,QItemSide,QItemMain,QSideLink,QListHeader,QList,
-      QItem,QItemSeparator,QItemTile},
-    name:'app',
-    data () {
-      return {
-        usuarioSolicitado: ''       
-      }
+      Toast, QSearch,
+      QLayout, QFixedPosition, QToolbar, QToolbarTitle, QBtn, QIcon, QItemSide, QItemMain, QSideLink, QListHeader, QList,
+      QItem, QItemSeparator, QItemTile
     },
+    name:'app',
+    data: () => ({
+      usuarioSolicitado: ''       
+    }),
     mounted() {
       if (LocalStorage.has('todoCerca.DeviceID')) {
-        var userAndDevice = { 
-                              user: '', 
-                              deviceID: '' 
+        let userAndDevice = { 
+          user: '', 
+          deviceID: '' 
         } 
-        userAndDevice.user = SessionStorage.get.item(userAndDevice.User) 
-        userAndDevice.deviceID = SessionStorage.get.item(userAndDevice.DeviceID)
+        userAndDevice.user = LocalStorage.get.item('todoCerca.User') 
+        userAndDevice.deviceID = LocalStorage.get.item('todoCerca.DeviceID')
         this.$store.commit('setUserAndDeviceID', userAndDevice)        
       } else {
          this.pedirUsuario()
@@ -114,7 +112,7 @@
         Dialog.create({
           noBackdropDismiss: true,
           noEscDismiss: true,
-          title: 'Identificacion',
+          title: 'Identificación',
           message: 'Ingrese por unica vez su nombre de usuario',
           form: {
             usuario: {
@@ -124,7 +122,9 @@
             }
           },
           buttons: [  { 
-                        label: 'Ok',
+                        label: 'Ingresar',
+                        raised: true,
+                        color: 'primary',
                         preventClose: true,
                         handler: (data, close) => {
                             //  Using ES6 arrow functions 
@@ -176,7 +176,7 @@
       }
     },
     computed: {
-      ...mapState(['layout']),
+      ...mapState(['user', 'layout']),
     }
   }
   </script>

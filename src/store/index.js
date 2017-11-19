@@ -59,7 +59,7 @@ const store = new Vuex.Store({
     mutations: {      
         ...firebaseMutations,
 
-        setUserAndDeviceID(state, userAndDevice){
+        setUserAndDeviceID(state, userAndDevice) {
             state.user = userAndDevice.user
             state.deviceID = userAndDevice.deviceID
         },
@@ -83,10 +83,6 @@ const store = new Vuex.Store({
             state.layout.cancel = payload.cancel || false
             state.layout.footer = payload.footer || false
         },
-        // updateFooterText(state, payload) {
-        //     state.footerText.left = payload.left || ""
-        //     state.footerText.right = payload.right || ""
-        // },
         toggleSearchBar(state){
             //----- state.route.path: propiedad que crea y mantiene la libreria 'vuex-router-sync' (main)
             console.log(state.route.path)

@@ -17,8 +17,9 @@
           placeholder="Buscar..."
         />
       </q-toolbar>
-    <!------------ Lista Productos ---------->
+    <!------------ Lista Clientes ---------->
     <q-list inset-separator no-border link>
+        <q-list-header>Elegir un cliente para realizar un pedido nuevo</q-list-header>
         <q-item :to="'/clientedetail/' + cli['.key']" v-for="(cli,key) in filteredShops" :key="key">
               
           <!-- <q-item-side>{{ cli['.key'] }}</q-item-side> -->

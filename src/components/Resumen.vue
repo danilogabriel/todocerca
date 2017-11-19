@@ -10,11 +10,11 @@
       <q-card class="col">
         <q-card-title>Accesos directos</q-card-title>
         <q-card-main class="group">
-          <q-btn outline icon="add" class="full-width" color="primary" @click="setDeviceId()">
+          <q-btn outline icon="add" class="full-width" color="primary" @click="$router.push('/clientes')">
             Nuevo pedido
           </q-btn>
 
-          <q-btn class="full-width" color="primary" @click="insertPedido()">
+          <q-btn class="full-width" color="primary" @click="insertPedido(pedidoDePrueba)">
             Insert pedido 
           </q-btn>
         </q-card-main>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { QBtn } from 'quasar'
 import { QCard, QCardMain, QCardTitle, QList, QItem, QIcon, QItemSide, QItemMain, QItemTile} from 'quasar'
 import Chart from 'frappe-charts/dist/frappe-charts.min.esm'
@@ -104,6 +104,7 @@ export default {
       search: false,
       cancel: false
     }
+    this.updateLayoutConf(config)
   },
   computed: {
     ...mapState(['pedidosList']),
@@ -111,7 +112,7 @@ export default {
     },
   },  
   methods:{
-
+    ...mapMutations(['updateLayoutConf', 'setLocalStorage', 'insertPedido']),
     //-- Metodo creado para probar la persistencia de variables en el browser --
     setDeviceId(){
       var payload={
@@ -119,20 +120,14 @@ export default {
         value: 'SM-T95-9232476-00'
       }
       //--  al ACTION setLocalStorage se le pasa un objeto con la clave/valor que se quiere guardar
-      this.$store.commit('setLocalStorage', payload)
+      this.setLocalStorage(payload)
+      // this.$store.commit('setLocalStorage', payload)
     },
 
-    insertPedido() {
-      this.$store.dispatch('insertPedido', this.pedidoDePrueba) 
-    },
-
-    activated() {
-      let config = {
-        title: "Todo cerca",
-        search: false
-      }
-      this.$store.commit('updateLayoutConf', config)
-    }
+    // insertPedido() {
+      // this.insertPedido(this.pedidoPrueba)
+      // this.$store.dispatch('insertPedido', this.pedidoDePrueba) 
+    // }
   }
 }
 </script>
