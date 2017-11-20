@@ -3,7 +3,7 @@
       Cliente Detail {{ this.idCliente }}
       <q-fixed-position corner="bottom-right" :offset="[18, 18]">
         <q-btn round color="primary" icon="add_shopping_cart" class="animate-pop" @click="nuevoPedido()"/>
-      </q-fixed-position>     
+      </q-fixed-position>      
   </div>
 </template>
 

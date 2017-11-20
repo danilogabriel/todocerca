@@ -169,7 +169,7 @@ export default {
   data: () => ({
       productoFilter: "",
       pedido: [],
-      qty: null,
+      qty: 1,
       promo: 0,
       productSelected: false,
       productSelectedDetail: {},
@@ -208,7 +208,7 @@ export default {
 
       this.pedidoNew = {}
       this.pedido = []
-      this.$router.go(-2)
+      this.$router.go(-1)
     },
     //-------------------------------------------------------------------------
 
@@ -238,21 +238,21 @@ export default {
       this.pedido.push(this.productSelectedDetail)
       
       //---------  Nuevo Item dentro de Nuevo Pedido ----------
-      var itemNewdCopy = Object.assign({}, this.itemNew)  //-- clona un objeto Item
-      itemNewdCopy.idProducto     = this.productSelectedDetail.id
-      itemNewdCopy.precio         = this.productSelectedDetail.price
-      itemNewdCopy.cantidad       = this.qty
-      itemNewdCopy.cantBonificada = this.promo
-      itemNewdCopy.montoItem      = this.subtotal - this.descuento
-      itemNewdCopy.montoDesc      = this.descuento
-      
-      this.pedidoNew.items.push(itemNewdCopy)
+      var itemNewCopy = Object.assign({}, this.itemNew)  //-- clona un objeto Item
+      itemNewCopy.idProducto     = this.productSelectedDetail.id
+      itemNewCopy.precio         = this.productSelectedDetail.price
+      itemNewCopy.cantidad       = this.qty
+      itemNewCopy.cantBonificada = this.promo
+      itemNewCopy.montoDesc      = itemNewCopy.precio * itemNewCopy.cantBonificada
+      itemNewCopy.montoItem      = (itemNewCopy.precio * itemNewCopy.cantidad) - itemNewCopy.montoDesc
+            
+      this.pedidoNew.items.push(itemNewCopy)
 
-      this.pedidoNew.subtotal  = this.totalPedido      
-      this.pedidoNew.total     = this.totalPedido 
+      this.pedidoNew.subtotal  += itemNewCopy.montoItem      
+      this.pedidoNew.total     += itemNewCopy.montoItem
       this.pedidoNew.descuento = 0 //-- Recordar:  este es el descuento gral del pedido
       
-      this.updateTotalPedido( this.totalPedido )  //------  VUEX
+      this.updateTotalPedido(  this.pedidoNew.total )  //------  VUEX
       //----------------------------------------------------------
 
       this.$refs.productFilterRef.clear()
