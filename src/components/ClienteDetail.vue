@@ -29,7 +29,7 @@ export default {
   }),
   computed: {
     idCliente: function() {
-      return this.$route.params.id
+      return this.$route.params.idCliente
     }
   },
   methods: {

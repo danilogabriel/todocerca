@@ -4,6 +4,9 @@
         <q-toolbar-title>
           Cliente ID: {{ idCliente }}
         </q-toolbar-title>
+        <q-btn flat @click="finalizarPedido()">
+            <q-icon name="send" />
+        </q-btn>
       </q-toolbar>
       <!-- <div>Nuevo Pedido de Cliente ID: {{ idCliente }}</div> -->
       <div v-if="pedido.length == 0" class="row items-center justify-center" style="margin-top: 18%; color: #757575">
@@ -129,6 +132,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import {
   QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, 
   QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert, QCard, QCardMain, QCardSeparator
@@ -142,6 +146,9 @@ export default {
     QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert, QCard, QCardMain, QCardSeparator
   },
   activated() {
+
+    this.pedidoNew.idCliente= this.idCliente
+
     let config = {
       title: "Nuevo pedido",
       search: false,
@@ -157,9 +164,45 @@ export default {
       promo: 0,
       productSelected: false,
       productSelectedDetail: {},
-      errorMsg: ''
+      errorMsg: '',
+      
+
+      pedidoNew: {
+          idCliente: 0,
+          fecha: "",
+          usuario: "",
+          deviceID: "",
+          subtotal: 0,
+          descuento: 0,
+          total: 0, 
+          nota: "",
+          items: [ ]
+      }, 
+      itemNew: { 
+        idProducto: "", 
+        precio: 0, 
+        cantidad: 0, 
+        cantBonificada:0, 
+        montoItem: 0, 
+        montoDesc: 0 
+      },
   }),
   methods: {
+
+    //-----------  Agregado por Danilo para insertar pedido en Firebase ---------
+    ...mapMutations(['updateTotalPedido', 'insertPedido']),
+
+    finalizarPedido() {
+      
+      this.insertPedido( this.pedidoNew ) //----------  VUEX
+      this.updateTotalPedido(0)           //----------  VUEX
+
+      this.pedidoNew = {}
+      this.pedido = []
+      this.$router.go(-2)
+    },
+    //-------------------------------------------------------------------------
+
     myFilter(terms, { field, list }) {
       const token = terms.toLowerCase()
       return list.filter(item => {
@@ -179,9 +222,30 @@ export default {
       }
     },
     agregarProducto() {
+
       this.productSelectedDetail["qty"] = this.qty
       this.productSelectedDetail["promo"] = this.promo
+
       this.pedido.push(this.productSelectedDetail)
+      
+      //---------  Nuevo Item dentro de Nuevo Pedido ----------
+      var itemNewdCopy = Object.assign({}, this.itemNew)  //-- clona un objeto Item
+      itemNewdCopy.idProducto     = this.productSelectedDetail.id
+      itemNewdCopy.precio         = this.productSelectedDetail.price
+      itemNewdCopy.cantidad       = this.qty
+      itemNewdCopy.cantBonificada = this.promo
+      itemNewdCopy.montoItem      = this.subtotal - this.descuento
+      itemNewdCopy.montoDesc      = this.descuento
+      
+      this.pedidoNew.items.push(itemNewdCopy)
+
+      this.pedidoNew.subtotal  = this.totalPedido      
+      this.pedidoNew.total     = this.totalPedido 
+      this.pedidoNew.descuento = 0 //-- Recordar:  este es el descuento gral del pedido
+      
+      this.updateTotalPedido( this.totalPedido )  //------  VUEX
+      //----------------------------------------------------------
+
       this.$refs.productFilterRef.clear()
       this.$refs.modalAddProducto.close()
     },
@@ -241,7 +305,7 @@ export default {
         }, 0);
     },
     idCliente() {
-      return this.$route.params.id
+      return this.$route.params.idCliente
     },
     subtotal() {
       return this.validForm ? this.productSelectedDetail.price * this.qty : 0

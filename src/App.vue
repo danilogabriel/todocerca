@@ -1,6 +1,6 @@
 <template>
   
-    <q-layout ref="layout" view="lHh Lpr fFf"> 
+    <q-layout ref="layout" view="lHh Lpr fFf" > 
   
       <q-toolbar slot="header">
         
@@ -58,8 +58,10 @@
    
       <q-toolbar slot="footer" v-if="layout.footer" color="amber-9" class="text-dark">
           <!-- <div class="col">{{footerText.left}}</div> -->
-          <!-- <div class="col text-right">Total</div> -->
-          <q-btn flat color="none" class="full-width">Finalizar pedido ($0,00)</q-btn>
+          <!-- <div class="col text-right">Total</div> -->"
+          <q-btn flat color="none" @click="" class="full-width">
+               Finalizar pedido ( {{ this.$store.state.totalCurrentOrder | currency }} )
+          </q-btn>
       </q-toolbar> 
   
     </q-layout>
@@ -107,6 +109,11 @@
       //-- Ni bien se crea la app ejecuto el action que bindea todas las collection de la base de datos
       this.$store.dispatch('setDatabaseRef') 
     },
+    events: {
+      finalizarPedidoEvent() {
+        this.escuchar()
+      }
+    }, 
     methods: {
       pedirUsuario() {
         Dialog.create({

@@ -30,6 +30,8 @@ const store = new Vuex.Store({
 
         activateSearchClientes: false,
         activateSearchProductos: false,
+
+        totalCurrentOrder: 0,
         
         layout: {
             title: 'Todo Cerca',
@@ -69,12 +71,17 @@ const store = new Vuex.Store({
             console.log("DeviceID: " + state.deviceID)            
         },
 
+        updateTotalPedido(state, total){
+            state.totalCurrentOrder = total
+        },
         insertPedido(state, pedido){
             //-- El ID de cada pedido esta formado por el momento en que se graba
             //   en el formato YYMMDDHHmmssMMM (con milisegundos).
             //   Una vez capturado el timestamp ademas se fomatea y se asigna al atributo FECHA del pedido
             var now = Number(moment().format('YYMMDDHHmmssSSS'));
-            pedido.fecha=moment(now.toString(), "YYMMDDHHmmssSSS").format("DD/MM/YY HH:mm")
+            pedido.fecha    = moment(now.toString(), "YYMMDDHHmmssSSS").format("DD/MM/YY HH:mm")
+            pedido.usuario  = state.user
+            pedido.deviceID = state.deviceID
             pedidosRef.child(now).set(pedido);
         },
         updateLayoutConf(state, payload) {

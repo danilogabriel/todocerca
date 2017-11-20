@@ -39,10 +39,10 @@ export default new VueRouter({
     { path: '/resumen', component: Resumen },
     
     { path: '/clientes', component: Clientes },
-    { path: '/clientedetail/:id', component: ClienteDetail },
+    { path: '/clientedetail/:idCliente', component: ClienteDetail },
     
     { path: '/pedidos', component: Pedidos },
-    { path: '/nuevopedido/:id', component: NuevoPedido },
+    { path: '/nuevopedido/:idCliente', component: NuevoPedido },
 
     { path: '/productos', component: Productos },
     
