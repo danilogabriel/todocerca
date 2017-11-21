@@ -12,7 +12,6 @@ import { firebaseAction } from 'vuexfire'
 import { firebaseMutations } from 'vuexfire'
 import { LocalStorage, SessionStorage } from 'quasar'
 import { date } from 'quasar'
-//import moment from 'moment'                  //-- tratamiento de fechas en pedidos
 
 import pedidos from './pedidos.js'  //-- modulo de state para la gestion de pedidos
 

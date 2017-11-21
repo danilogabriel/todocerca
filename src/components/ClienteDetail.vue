@@ -55,7 +55,6 @@ export default {
     pedidosListFiltradosPorCliente( idCli ) {
 
        return this.pedidosList.filter( (pedido,idCli) => parseInt(pedido.idCliente) == parseInt(idCli) )
-       //return this.pedidosList.filter(pedido => parseInt(pedido.idCliente) == parseInt(idCli))
     },
 
     idCliente: function() {

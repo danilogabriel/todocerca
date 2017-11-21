@@ -114,15 +114,6 @@ const mutations = {
         state.pedidoNew.deviceID  = rootState.deviceID
         db.ref('pedidos').child(pedidoID).set( state.pedidoNew )
         
-        //state.pedidoNew.usuario  = "demooooo"
-        //state.pedidoNew.deviceID = "device Demooo"
-
-
-        //rootState.pedidosList.push(state.pedidoNew)
-
-        //pedidosRef.child(now).set(pedido)
-        
-        //pedidosRef.child(pedidoID).set( state.pedidoNew )
     },
 }
 import db from '@/datasource.js'

@@ -141,21 +141,14 @@
 </template>
 
 <script>
-<<<<<<< HEAD
+
 import { mapState, mapMutations, mapActions } from 'vuex'
-=======
->>>>>>> 314c749a217e126af8b6840890536dd2fe6bcbc3
 import {
   QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, 
   QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert, QCard, QCardMain, QCardSeparator,
   ActionSheet
 } from 'quasar'
-<<<<<<< HEAD
-=======
 import { TouchHold } from 'quasar'
-import { mapMutations } from 'vuex'
-import { mapState } from 'vuex'
->>>>>>> 314c749a217e126af8b6840890536dd2fe6bcbc3
 
 export default {
   name: 'NuevoPedido',
@@ -277,12 +270,6 @@ export default {
       itemNewCopy.montoItem      = (itemNewCopy.precio * itemNewCopy.cantidad) - itemNewCopy.montoDesc
             
       this.addItem(itemNewCopy)  //-- action de Vuex mapeada: addItem
-
-      //this.pedidoNew.subtotal  += itemNewCopy.montoItem      
-      //this.pedidoNew.total     += itemNewCopy.montoItem
-      //this.pedidoNew.descuento = 0 //-- Recordar:  este es el descuento gral del pedido
-      
-      //this.updateTotalPedido(  this.pedidoNew.total )  //------  VUEX
       //----------------------------------------------------------
 
       this.$refs.productFilterRef.clear()

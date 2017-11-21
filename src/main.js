@@ -16,14 +16,11 @@ import store from './store/index'
 import router from './router'
 import { sync } from 'vuex-router-sync'   //-- mantener sincronizado router en VUEX
 import { date } from 'quasar'
-//import VueFire from 'vuefire'
 
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
 
 sync(store, router)
-
-//Vue.use(VueFire)
 
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')
