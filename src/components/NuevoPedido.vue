@@ -4,9 +4,6 @@
         <q-toolbar-title>
           Cliente ID: {{ idCliente }}
         </q-toolbar-title>
-        <q-btn flat @click="finalizarPedido()">
-            <q-icon name="send" />
-        </q-btn>
       </q-toolbar>
       <!-- <div>Nuevo Pedido de Cliente ID: {{ idCliente }}</div> -->
       <div v-if="pedido.length == 0" class="row items-center justify-center" style="margin-top: 18%; color: #757575">
