@@ -11,14 +11,17 @@ import vuexfire from 'vuexfire'
 import { firebaseAction } from 'vuexfire'
 import { firebaseMutations } from 'vuexfire'
 import { LocalStorage, SessionStorage } from 'quasar'
-import moment from 'moment'                  //-- tratamiento de fechas en pedidos
+import { date } from 'quasar'
+//import moment from 'moment'                  //-- tratamiento de fechas en pedidos
+
+import pedidos from './pedidos.js'  //-- modulo de state para la gestion de pedidos
 
 Vue.use(Vuex)
 
 import db from '@/datasource.js'              //---  importo la conexion
 var clientesRef  = db.ref('clientes-chico')   //---  defino de manera glogal el acceso a la base 
 var productosRef = db.ref('productos-chico')  //     de clientes y productos.
-var pedidosRef = db.ref('pedidos')
+var pedidosRef = null   //-- mas abajo en las actions se utilizara esta ref a la base Firebase pero filtrada por DeviceID
 
 /* eslint-disable */
 const store = new Vuex.Store({
@@ -30,8 +33,8 @@ const store = new Vuex.Store({
 
         activateSearchClientes: false,
         activateSearchProductos: false,
-
-        totalCurrentOrder: 0,
+        
+        idClienteSeleccionado: 0,
         
         layout: {
             title: 'Todo Cerca',
@@ -43,24 +46,31 @@ const store = new Vuex.Store({
         user: null,    //-- Se pide por unica vez la primera vez que no este guardado en el localStor
         deviceID: ''   //-- cuando se guarden los pedidos se agregara el ID de Dispositivo y User
     },
+
+    getters: {
+        pedidosByIdCliente(state, idCli){
+            return state.pedidosList.filter(pedido => pedido.idCliente === idCli)
+        }
+    },
     actions: {
-        login(context) {
+        login(context,state) {
             context.commit('login')
         },
         setDatabaseRef: firebaseAction(({ bindFirebaseRef }) => {
             bindFirebaseRef('clientesList', clientesRef, { wait: true })
             bindFirebaseRef('productosList', productosRef, { wait: true })
+
+            pedidosRef = db.ref('pedidos').orderByChild('deviceID').equalTo('XXX-999')
             bindFirebaseRef('pedidosList', pedidosRef, { wait: true })
-        }),        
-        
-        insertPedido(context, pedido){
-            context.commit('insertPedido', pedido)
-        }
+        }),             
     },
 
     mutations: {      
         ...firebaseMutations,
-
+        
+        setClienteSeleccionado(state, idCliente){    //-- se actualiza el Cliente en el state Global y en el pedido
+            state.idClienteSeleccionado = idCliente
+        },
         setUserAndDeviceID(state, userAndDevice) {
             state.user = userAndDevice.user
             state.deviceID = userAndDevice.deviceID
@@ -71,19 +81,6 @@ const store = new Vuex.Store({
             console.log("DeviceID: " + state.deviceID)            
         },
 
-        updateTotalPedido(state, total){
-            state.totalCurrentOrder = total
-        },
-        insertPedido(state, pedido){
-            //-- El ID de cada pedido esta formado por el momento en que se graba
-            //   en el formato YYMMDDHHmmssMMM (con milisegundos).
-            //   Una vez capturado el timestamp ademas se fomatea y se asigna al atributo FECHA del pedido
-            var now = Number(moment().format('YYMMDDHHmmssSSS'));
-            pedido.fecha    = moment(now.toString(), "YYMMDDHHmmssSSS").format("DD/MM/YY HH:mm")
-            pedido.usuario  = state.user
-            pedido.deviceID = state.deviceID
-            pedidosRef.child(now).set(pedido);
-        },
         updateLayoutConf(state, payload) {
             state.layout.title = payload.title || "Todo cerca"
             state.layout.search = payload.search || false
@@ -103,6 +100,10 @@ const store = new Vuex.Store({
         productosList: state => state.productosList,
         pedidosList: state => state.pedidosList
     },
+    
+    modules: {
+        pedidos
+    },    
 })
 
 export default store

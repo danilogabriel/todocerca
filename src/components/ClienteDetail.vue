@@ -1,21 +1,39 @@
 <template>
-  <div class="layout-padding row justify-center">
-      Cliente Detail {{ this.idCliente }}
+  <div>
+     
       <q-fixed-position corner="bottom-right" :offset="[18, 18]">
         <q-btn round color="primary" icon="add_shopping_cart" class="animate-pop" @click="nuevoPedido()"/>
-      </q-fixed-position>      
+      </q-fixed-position>   
+
+      <div class="row">
+          <q-card class="col">
+            <q-card-title>Últimos pedidos Cliente: {{ this.idCliente }} </q-card-title>
+            <q-list separator no-border link>
+              <q-item v-for="(pedido,key) in pedidosList" :key="key">
+                <q-item-main>
+                  <q-item-tile label>{{ ('00000'+ pedido.idCliente ).slice(-5)  }} </q-item-tile>
+                  <q-item-tile label>Subt: {{ pedido.subtotal | currency }} - Desc: {{ pedido.descuento | currency }} </q-item-tile>
+                  <q-item-tile sublabel>{{  pedido['.key']  }} - {{ pedido.fecha }}</q-item-tile>
+                </q-item-main>
+                <q-item-side right class="text-bold"> {{ pedido.total | currency }}</q-item-side>
+              </q-item>
+            </q-list>    
+          </q-card>
+      </div>
+             
   </div>
 </template>
 
 <script>
-import {
-  QBtn, QFixedPosition
-} from 'quasar'
+import { mapState } from 'vuex'
+import { QBtn, QFixedPosition } from 'quasar'
+import { QCard, QCardMain, QCardTitle, QList, QItem, QIcon, QItemSide, QItemMain, QItemTile} from 'quasar'
 
 export default {
   name: 'ClienteDetail',
   components: {
-    QBtn, QFixedPosition
+    QBtn, QFixedPosition,
+    QCard, QCardMain, QCardTitle, QList, QItem, QIcon, QItemSide, QItemMain, QItemTile
   },
   activated() {
     let config = {
@@ -23,15 +41,28 @@ export default {
       search: false,
       cancel: false
     }
+    this.$store.commit('setClienteSeleccionado', this.$route.params.idCliente)
     this.$store.commit('updateLayoutConf', config)
   },
+
   data: () => ({
+    
   }),
+  
   computed: {
+    ...mapState([ 'pedidosList']),
+
+    pedidosListFiltradosPorCliente( idCli ) {
+
+       return this.pedidosList.filter( (pedido,idCli) => parseInt(pedido.idCliente) == parseInt(idCli) )
+       //return this.pedidosList.filter(pedido => parseInt(pedido.idCliente) == parseInt(idCli))
+    },
+
     idCliente: function() {
       return this.$route.params.idCliente
     }
   },
+
   methods: {
     nuevoPedido() {
       this.$router.push({ path: `/nuevopedido/${this.idCliente}` })

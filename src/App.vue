@@ -59,8 +59,8 @@
       <q-toolbar slot="footer" v-if="layout.footer" color="amber-9" class="text-dark">
           <!-- <div class="col">{{footerText.left}}</div> -->
           <!-- <div class="col text-right">Total</div> -->"
-          <q-btn flat color="none" @click="" class="full-width">
-               Finalizar pedido ( {{ this.$store.state.totalCurrentOrder | currency }} )
+          <q-btn flat color="none" @click="completarDatosPedido()" class="full-width">
+               Finalizar pedido ( {{ this.$store.state.pedidos.pedidoNew.subtotal | currency }} )
           </q-btn>
       </q-toolbar> 
   
@@ -70,7 +70,7 @@
   
   <script>
   import firebase from 'firebase'
-  import { mapState } from 'vuex'
+  import { mapState, mapMutations, mapActions } from 'vuex'
   import { LocalStorage } from 'quasar'
   import {
     Dialog, Toast, QSearch,
@@ -109,12 +109,47 @@
       //-- Ni bien se crea la app ejecuto el action que bindea todas las collection de la base de datos
       this.$store.dispatch('setDatabaseRef') 
     },
-    events: {
-      finalizarPedidoEvent() {
-        this.escuchar()
-      }
-    }, 
     methods: {
+
+      ...mapActions(['insertPedido']),     
+      ...mapMutations(['SET_DESCUENTO_GLOBAL', 'SET_NOTA']),
+
+      completarDatosPedido(){
+          Dialog.create({
+            noBackdropDismiss: true,
+            noEscDismiss: true,
+            title: 'Finalizar Pedido',
+            //message: 'Puede ingresar un comentario y el % de Descuento del pedido',
+            form: {
+              descuento: {
+                type: 'text',
+                label: '% Descuento',
+                model: ''
+              },
+              nota: {
+                type: 'text',
+                label: 'Nota',
+                model: ''
+              }
+            },
+            buttons: [  { 
+                          label: 'Confirmar',
+                          raised: true,
+                          color: 'primary',
+                          preventClose: true,
+                          handler: (data, close) => {
+                              if (parseFloat(data.descuento) > 100) {
+                                  Toast.create.warning('Excede el maximo de descuento')
+                                  return
+                              }
+                              close()
+                              this.finalizarPedido(data.descuento, data.nota)
+                          }
+                        }
+            ]
+          })
+
+      },
       pedirUsuario() {
         Dialog.create({
           noBackdropDismiss: true,
@@ -128,8 +163,9 @@
               model: ''
             }
           },
-          buttons: [  { 
-                        label: 'Ingresar',
+          buttons: [ 'Cancel',
+                      { 
+                        label: 'Confirmar',
                         raised: true,
                         color: 'primary',
                         preventClose: true,
@@ -150,6 +186,19 @@
                       }
           ]
         })
+      },
+      finalizarPedido(descuento, nota){
+          //------- Actualizar en el state DESCUENTO y NOTA --------
+          if (parseFloat(descuento) > 0) { 
+            this.SET_DESCUENTO_GLOBAL(parseInt(descuento))
+          }
+          if (nota.length>0)  {
+            this.SET_NOTA(nota)
+          }
+
+          //-----------------Action de confirmar pedido -----------
+          this.insertPedido()
+          this.$router.go(-1)
       },
       setUserAndDeviceID(usuario) {
         var userAndDevice = { 

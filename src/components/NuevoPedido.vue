@@ -141,12 +141,11 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import {
   QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, 
   QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert, QCard, QCardMain, QCardSeparator
 } from 'quasar'
-import { mapState } from 'vuex'
 
 export default {
   name: 'NuevoPedido',
@@ -156,8 +155,6 @@ export default {
   },
   activated() {
 
-    this.pedidoNew.idCliente= this.idCliente
-
     let config = {
       title: "Nuevo pedido",
       search: false,
@@ -166,6 +163,8 @@ export default {
     }
     this.$store.commit('updateLayoutConf', config)
   },
+
+
   data: () => ({
       productoFilter: "",
       pedido: [],
@@ -174,41 +173,22 @@ export default {
       productSelected: false,
       productSelectedDetail: {},
       errorMsg: '',
-      
 
-      pedidoNew: {
-          idCliente: 0,
-          fecha: "",
-          usuario: "",
-          deviceID: "",
-          subtotal: 0,
-          descuento: 0,
-          total: 0, 
-          nota: "",
-          items: [ ]
-      }, 
-      itemNew: { 
-        idProducto: "", 
-        precio: 0, 
-        cantidad: 0, 
-        cantBonificada:0, 
-        montoItem: 0, 
-        montoDesc: 0 
-      },
+      // pedidoNew y itemNew: ahora vienen del modulo 'Pedidos.js' del global state
   }),
+
+
   methods: {
-
     //-----------  Agregado por Danilo para insertar pedido en Firebase ---------
-    ...mapMutations(['updateTotalPedido', 'insertPedido']),
+    //...mapState('pedidos', ['pedidoNew', 'itemNew']),
 
-    finalizarPedido() {
-      
-      this.insertPedido( this.pedidoNew ) //----------  VUEX
-      this.updateTotalPedido(0)           //----------  VUEX
+    ...mapActions(['addItem', 'insertPedido']),
+    ...mapMutations(['SET_CLIENTE']),
 
-      this.pedidoNew = {}
-      this.pedido = []
-      this.$router.go(-1)
+    finalizarPedido() {     
+        this.insertPedido( ) //----------  VUEX
+        this.pedido = []
+        this.$router.go(-1)
     },
     //-------------------------------------------------------------------------
 
@@ -246,13 +226,13 @@ export default {
       itemNewCopy.montoDesc      = itemNewCopy.precio * itemNewCopy.cantBonificada
       itemNewCopy.montoItem      = (itemNewCopy.precio * itemNewCopy.cantidad) - itemNewCopy.montoDesc
             
-      this.pedidoNew.items.push(itemNewCopy)
+      this.addItem(itemNewCopy)  //-- action de Vuex mapeada: addItem
 
-      this.pedidoNew.subtotal  += itemNewCopy.montoItem      
-      this.pedidoNew.total     += itemNewCopy.montoItem
-      this.pedidoNew.descuento = 0 //-- Recordar:  este es el descuento gral del pedido
+      //this.pedidoNew.subtotal  += itemNewCopy.montoItem      
+      //this.pedidoNew.total     += itemNewCopy.montoItem
+      //this.pedidoNew.descuento = 0 //-- Recordar:  este es el descuento gral del pedido
       
-      this.updateTotalPedido(  this.pedidoNew.total )  //------  VUEX
+      //this.updateTotalPedido(  this.pedidoNew.total )  //------  VUEX
       //----------------------------------------------------------
 
       this.$refs.productFilterRef.clear()
@@ -263,7 +243,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['productosList']),
+    ...mapState(['productosList']),   
+
     validForm() {
       if (this.qty.length == 0) this.errorMsg = ''
       if (!this.productSelected) return false
