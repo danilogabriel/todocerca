@@ -17,9 +17,9 @@
             <div>que está abajo a tu derecha</div>
           </div>
       </div>
-      <q-list separator no-border v-else>
+      <q-list highlight separator no-border v-else>
         <q-list-header>Detalle del pedido</q-list-header>
-        <q-item v-for="(prod,key) in pedido" :key="key">
+        <q-item :ref="prod.id" :id="prod.id" v-for="(prod,key) in pedido" :key="key" v-touch-hold="onTouchHoldProducto">
           <q-item-main>
             <q-item-tile label>{{ prod.label }}</q-item-tile>
             <q-item-tile sublabel>
@@ -141,18 +141,24 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
 import {
   QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, 
-  QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert, QCard, QCardMain, QCardSeparator
+  QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert, QCard, QCardMain, QCardSeparator,
+  ActionSheet
 } from 'quasar'
+import { TouchHold } from 'quasar'
+import { mapMutations } from 'vuex'
 import { mapState } from 'vuex'
 
 export default {
   name: 'NuevoPedido',
   components: {
     QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, 
-    QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert, QCard, QCardMain, QCardSeparator
+    QItemTile, QInput, QSlider, QField, QChip, QIcon, QAlert, QCard, QCardMain, QCardSeparator,
+    ActionSheet
+  },
+  directives: {
+    TouchHold
   },
   activated() {
 
@@ -211,7 +217,43 @@ export default {
       this.$router.go(-1)
     },
     //-------------------------------------------------------------------------
+    /* Touch event para eliminar un producto */
+    onTouchHoldProducto(obj) {
+      let self = this
+      let producto = this.pedido.find(prod => prod.id === obj.evt.target.offsetParent.id)
 
+      let indexOfProd = this.pedido.indexOf(producto)
+
+      ActionSheet.create({
+        title: producto.label,
+        gallery: true,
+        actions: [
+          {
+            label: 'Eliminar producto',
+            icon: 'delete',
+            handler () {
+              if (indexOfProd > -1) {
+                self.pedido.splice(indexOfProd, 1)
+                self.updateTotalPedido(self.totalPedido)
+              }
+            }
+          },
+          // {
+          //   label: 'Editar',
+          //   icon: 'edit',
+          //   handler () {
+          //     // Toast.create('Shared!')
+          //   }
+          // },
+        ],
+        dismiss: {
+          label: 'Cancelar',
+          handler () {
+            // Toast.create('Cancelled...')
+          }
+        }
+      })
+    },
     myFilter(terms, { field, list }) {
       const token = terms.toLowerCase()
       return list.filter(item => {

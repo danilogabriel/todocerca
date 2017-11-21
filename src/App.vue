@@ -58,9 +58,9 @@
    
       <q-toolbar slot="footer" v-if="layout.footer" color="amber-9" class="text-dark">
           <!-- <div class="col">{{footerText.left}}</div> -->
-          <!-- <div class="col text-right">Total</div> -->"
-          <q-btn flat color="none" @click="" class="full-width">
-               Finalizar pedido ( {{ this.$store.state.totalCurrentOrder | currency }} )
+          <!-- <div class="col text-right">Total</div> -->
+          <q-btn flat :disabled="this.$store.state.totalCurrentOrder == 0" color="none" @click="" class="full-width">
+               Finalizar pedido <strong>({{ this.$store.state.totalCurrentOrder | currency }})</strong>
           </q-btn>
       </q-toolbar> 
   
