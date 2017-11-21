@@ -58,9 +58,15 @@
    
       <q-toolbar slot="footer" v-if="layout.footer" color="amber-9" class="text-dark">
           <!-- <div class="col">{{footerText.left}}</div> -->
+<<<<<<< HEAD
           <!-- <div class="col text-right">Total</div> -->"
           <q-btn flat color="none" @click="completarDatosPedido()" class="full-width">
                Finalizar pedido ( {{ this.$store.state.pedidos.pedidoNew.subtotal | currency }} )
+=======
+          <!-- <div class="col text-right">Total</div> -->
+          <q-btn flat :disabled="this.$store.state.totalCurrentOrder == 0" color="none" @click="" class="full-width">
+               Finalizar pedido <strong>({{ this.$store.state.totalCurrentOrder | currency }})</strong>
+>>>>>>> 314c749a217e126af8b6840890536dd2fe6bcbc3
           </q-btn>
       </q-toolbar> 
   
