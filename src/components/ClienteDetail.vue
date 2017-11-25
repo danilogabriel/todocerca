@@ -1,39 +1,40 @@
 <template>
   <div>
-     
+      <q-card flat>
+        <q-card-title>Cliente {{ this.idCliente }}</q-card-title>
+        <q-card-main>
+          datos
+        </q-card-main>
+        <q-card-separator />
+      </q-card>
+      <q-list-header>Últimos pedidos</q-list-header>
+      <q-list separator no-border link>
+        <q-item v-for="(pedido,key) in pedidosList" :key="key">
+          <q-item-main>
+            <q-item-tile label>{{ ('00000'+ pedido.idCliente ).slice(-5)  }} </q-item-tile>
+            <q-item-tile label>Subt: {{ pedido.subtotal | currency }} - Desc: {{ pedido.descuento | currency }} </q-item-tile>
+            <q-item-tile sublabel>{{  pedido['.key']  }} - {{ pedido.fecha }}</q-item-tile>
+          </q-item-main>
+          <q-item-side right class="text-bold"> {{ pedido.total | currency }}</q-item-side>
+        </q-item>
+      </q-list>
+
       <q-fixed-position corner="bottom-right" :offset="[18, 18]">
         <q-btn round color="primary" icon="add_shopping_cart" class="animate-pop" @click="nuevoPedido()"/>
-      </q-fixed-position>   
-
-      <div class="row">
-          <q-card class="col">
-            <q-card-title>Últimos pedidos Cliente: {{ this.idCliente }} </q-card-title>
-            <q-list separator no-border link>
-              <q-item v-for="(pedido,key) in pedidosList" :key="key">
-                <q-item-main>
-                  <q-item-tile label>{{ ('00000'+ pedido.idCliente ).slice(-5)  }} </q-item-tile>
-                  <q-item-tile label>Subt: {{ pedido.subtotal | currency }} - Desc: {{ pedido.descuento | currency }} </q-item-tile>
-                  <q-item-tile sublabel>{{  pedido['.key']  }} - {{ pedido.fecha }}</q-item-tile>
-                </q-item-main>
-                <q-item-side right class="text-bold"> {{ pedido.total | currency }}</q-item-side>
-              </q-item>
-            </q-list>    
-          </q-card>
-      </div>
-             
+      </q-fixed-position>             
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import { QBtn, QFixedPosition } from 'quasar'
-import { QCard, QCardMain, QCardTitle, QList, QItem, QIcon, QItemSide, QItemMain, QItemTile} from 'quasar'
+import { QCard, QCardMain, QCardTitle, QCardSeparator, QListHeader, QList, QItem, QIcon, QItemSide, QItemMain, QItemTile} from 'quasar'
 
 export default {
   name: 'ClienteDetail',
   components: {
     QBtn, QFixedPosition,
-    QCard, QCardMain, QCardTitle, QList, QItem, QIcon, QItemSide, QItemMain, QItemTile
+    QCard, QCardMain, QCardTitle, QCardSeparator, QListHeader, QList, QItem, QIcon, QItemSide, QItemMain, QItemTile
   },
   activated() {
     let config = {
