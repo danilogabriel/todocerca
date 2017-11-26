@@ -49,6 +49,7 @@ const actions = {
     },
 
     insertPedido({ state, commit, rootState }) {
+        commit('SET_TOTAL')
         commit('INSERT_PEDIDO',rootState )
         commit('RESET_PEDIDO')
     } 
@@ -74,14 +75,22 @@ const mutations = {
 
     SET_DESCUENTO_GLOBAL(state, descuentoGlobalPedido){
         state.pedidoNew.descuento = parseFloat(descuentoGlobalPedido)
-        if (descuentoGlobalPedido>0) {
-            state.pedidoNew.total = state.pedidoNew.subtotal * ( (100-descuentoGlobalPedido)/100)
-        }    
+        // if (descuentoGlobalPedido>0) {
+        //      state.pedidoNew.total = state.pedidoNew.subtotal * ( (100-descuentoGlobalPedido)/100)
+        // }    
     },
 
     SET_NOTA(state, nota) {
         state.pedidoNew.nota = nota 
     }, 
+
+    SET_TOTAL(state) {
+        if (state.pedidoNew.descuento>0) {
+            state.pedidoNew.total = state.pedidoNew.subtotal * ( (100-state.pedidoNew.descuento)/100)
+        } else {
+            state.pedidoNew.total = state.pedidoNew.subtotal
+        }
+    },    
 
     UPDATE_SUBTOTAL_PEDIDO(state){
         var suma = state.pedidoNew.items.reduce(function(sum,item) {
@@ -108,7 +117,7 @@ const mutations = {
         let timeStampFormato = date.formatDate(timeStamp, 'DD/MM/YY HH:mm:ss')
         let pedidoID = parseInt(date.formatDate(timeStamp, 'YYMMDDHHmmssSSS') )
 
-        state.pedidoNew.idCliente = rootState.idClienteSeleccionado
+        state.pedidoNew.idCliente = parseInt(rootState.clienteSeleccionado.id)
         state.pedidoNew.fecha     = timeStampFormato
         state.pedidoNew.usuario   = rootState.user
         state.pedidoNew.deviceID  = rootState.deviceID

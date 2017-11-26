@@ -101,10 +101,14 @@
       } else {
          this.pedirUsuario()
       }
+      //---  El bindeo de Pedidos recien se puede realizar luego de haber seteado deviceID
+      //     para que traiga solamente los pedidos correspondientes al dispositivo actual
+      this.$store.dispatch('setPedidosRef')
+       
     },
     created() {
-      //-- Ni bien se crea la app ejecuto el action que bindea todas las collection de la base de datos
-      this.$store.dispatch('setDatabaseRef') 
+      //-- Ni bien se crea la app ejecuto el action que bindea Prod. y Clientes de la base de datos
+      this.$store.dispatch('setClientesYProductosRef') 
     },
     methods: {
 
@@ -114,7 +118,7 @@
       completarDatosPedido(){
           Dialog.create({
             noBackdropDismiss: true,
-            noEscDismiss: true,
+            noEscDismiss: false,
             title: 'Finalizar Pedido',
             //message: 'Puede ingresar un comentario y el % de Descuento del pedido',
             form: {
@@ -129,7 +133,8 @@
                 model: ''
               }
             },
-            buttons: [  { 
+            buttons: [   'Cancel',
+                        { 
                           label: 'Confirmar',
                           raised: true,
                           color: 'primary',
@@ -197,11 +202,8 @@
           this.$router.go(-1)
       },
       setUserAndDeviceID(usuario) {
-        var userAndDevice = { 
-                              user: '', 
-                              deviceID: '' 
-        } 
-        userAndDevice.deviceID = 'XXX-999'
+        var userAndDevice = { } 
+        userAndDevice.deviceID = 'Notebook'
         userAndDevice.user = usuario
         console.log('El usuario cargado es: ' + userAndDevice.user)          
         LocalStorage.set('todoCerca.User', userAndDevice.user)

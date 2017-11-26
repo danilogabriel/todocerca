@@ -33,7 +33,7 @@ const store = new Vuex.Store({
         activateSearchClientes: false,
         activateSearchProductos: false,
         
-        idClienteSeleccionado: 0,
+        clienteSeleccionado: {},
         
         layout: {
             title: 'Todo Cerca',
@@ -55,11 +55,12 @@ const store = new Vuex.Store({
         login(context,state) {
             context.commit('login')
         },
-        setDatabaseRef: firebaseAction(({ bindFirebaseRef }) => {
+        setClientesYProductosRef: firebaseAction(({ bindFirebaseRef }) => {
             bindFirebaseRef('clientesList', clientesRef, { wait: true })
             bindFirebaseRef('productosList', productosRef, { wait: true })
-
-            pedidosRef = db.ref('pedidos').orderByChild('deviceID').equalTo('XXX-999')
+        }),             
+        setPedidosRef: firebaseAction(({ state, bindFirebaseRef }) => {
+            pedidosRef = db.ref('pedidos').orderByChild('deviceID').equalTo(state.deviceID)
             bindFirebaseRef('pedidosList', pedidosRef, { wait: true })
         }),             
     },
@@ -67,10 +68,11 @@ const store = new Vuex.Store({
     mutations: {      
         ...firebaseMutations,
         
-        setClienteSeleccionado(state, idCliente){    //-- se actualiza el Cliente en el state Global y en el pedido
-            state.idClienteSeleccionado = idCliente
+        setClienteSeleccionado(state, objCliente){    //-- se actualiza el Cliente en el state Global y en el pedido
+            state.clienteSeleccionado = objCliente
         },
         setUserAndDeviceID(state, userAndDevice) {
+            console.log("Se configura User y DeviceID (" + userAndDevice.user + "/"+ userAndDevice.deviceID + ")")
             state.user = userAndDevice.user
             state.deviceID = userAndDevice.deviceID
         },

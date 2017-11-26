@@ -26,8 +26,9 @@
         <q-list separator no-border link>
           <q-item v-for="(pedido,key) in pedidosList" :key="key">
             <q-item-main>
-              <q-item-tile label>{{ ('00000'+ pedido.idCliente ).slice(-5)  }} </q-item-tile>
-              <q-item-tile sublabel>{{  pedido['.key']  }} - {{ pedido.fecha }}</q-item-tile>
+              <q-item-tile label>  {{ ('00000'+ pedido.idCliente ).slice(-5) }} - {{ getNombreCliente(pedido.idCliente) }} </q-item-tile>
+              <q-item-tile label>Fecha: {{ pedido.fecha }}  -  Estado: {{ pedido.estado }}</q-item-tile>
+              <q-item-tile sublabel>Usuario: {{ pedido.usuario }}  -  DeviceID: {{ pedido.deviceID }}</q-item-tile>
             </q-item-main>
             <q-item-side right class="text-bold">$ {{ pedido.total }}</q-item-side>
           </q-item>
@@ -81,21 +82,6 @@ export default {
     chartData: {
       labels: ["9am-12pm", "1pm-4pm", "5pm-8pm"],
       datasets: [ { values: [25, 40, 30] } ]
-    },
-    pedidoDePrueba: {
-      idCliente: 1,
-      fecha: "",
-      usuario: "xxxxx",
-      subtotal: 100.5,
-      descuento: 15,
-      total: 90.45, 
-      nota: "pedido 1",
-      items: [
-        { idProducto: "1-0001", precio: 12.5, cantidad: 5, cantBonificada:1, montoItem: 50.0, montoDesc: 12.5 },
-        { idProducto: "1-0002", precio: 8.1, cantidad: 3, cantBonificada:1, montoItem: 16.2, montoDesc: 8.1 },
-        { idProducto: "1-0003", precio: 9.3, cantidad: 3, cantBonificada:1, montoItem: 18.6, montoDesc: 9.3 },                    
-        { idProducto: "1-0005", precio: 15.25, cantidad: 2, cantBonificada:1, montoItem: 15.25, montoDesc: 15.25 }          
-      ]
     }
   }),
   activated() {
@@ -107,27 +93,17 @@ export default {
     this.updateLayoutConf(config)
   },
   computed: {
-    ...mapState(['pedidosList']),
+    ...mapState(['clientesList','pedidosList']),
     filteredPedidos() {
     },
   },  
   methods:{
     ...mapMutations(['updateLayoutConf', 'setLocalStorage', 'insertPedido']),
-    //-- Metodo creado para probar la persistencia de variables en el browser --
-    setDeviceId(){
-      var payload={
-        key: 'DeviceID',
-        value: 'SM-T95-9232476-00'
-      }
-      //--  al ACTION setLocalStorage se le pasa un objeto con la clave/valor que se quiere guardar
-      this.setLocalStorage(payload)
-      // this.$store.commit('setLocalStorage', payload)
-    },
 
-    // insertPedido() {
-      // this.insertPedido(this.pedidoPrueba)
-      // this.$store.dispatch('insertPedido', this.pedidoDePrueba) 
-    // }
+    getNombreCliente(idCli) {
+      var objCliente = this.clientesList.find(objCli => objCli.id === parseInt(idCli))
+      return objCliente.nombre
+    }
   }
 }
 </script>

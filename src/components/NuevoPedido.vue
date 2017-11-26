@@ -2,7 +2,7 @@
   <div>
       <q-toolbar color="primary">
         <q-toolbar-title>
-          Cliente ID: {{ idCliente }}
+          Cliente: ({{ idClienteFormatted }})-{{ clienteSeleccionado.nombre }}
         </q-toolbar-title>
       </q-toolbar>
       <!-- <div>Nuevo Pedido de Cliente ID: {{ idCliente }}</div> -->
@@ -194,8 +194,6 @@ export default {
 
   methods: {
     //-----------  Agregado por Danilo para insertar pedido en Firebase ---------
-    //...mapState('pedidos', ['pedidoNew', 'itemNew']),
-
     ...mapActions(['addItem', 'insertPedido']),
     ...mapMutations(['SET_CLIENTE']),
 
@@ -289,7 +287,11 @@ export default {
     }
   },
   computed: {
-    ...mapState(['productosList']),   
+    ...mapState(['productosList', 'clienteSeleccionado']),  
+    
+    idClienteFormatted(){
+      return ('00000'+ this.clienteSeleccionado.id ).slice(-5)
+    },
 
     validForm() {
       let qtyNumber = parseInt(this.qty)

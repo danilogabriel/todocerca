@@ -8,6 +8,8 @@ import Resumen from '@/Resumen.vue'
 import Lista from '@/Lista.vue'
 import ClienteDetail from '@/ClienteDetail.vue'
 import NuevoPedido from '@/NuevoPedido.vue'
+import PedidoDetail from '@/PedidoDetail.vue'
+
 
 Vue.use(VueRouter)
 
@@ -43,7 +45,8 @@ export default new VueRouter({
     
     { path: '/pedidos', component: Pedidos },
     { path: '/nuevopedido/:idCliente', component: NuevoPedido },
-
+    { path: '/pedidodetail/:idPedido', component: PedidoDetail },
+    
     { path: '/productos', component: Productos },
     
     
