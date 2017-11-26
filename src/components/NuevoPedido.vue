@@ -69,51 +69,61 @@
           <template v-else>
             <q-card flat color="blue-grey-2" class="text-dark">
               <q-card-main>
-                <div class="row lg-gutter">
-                  <div class="col">
-                    <!-- <h6>
-                      <q-icon name="format_list_numbered" color="primary" size="1.3rem"></q-icon>
-                      Cantidad
-                    </h6>
-                    <q-input type="text" autofocus v-model="qty" /> -->
-                    <q-field
-                      label="Cantidad"
-                      icon="format_list_numbered"
-                      :label-width="4"
-                    >
-                      <q-input type="text" autofocus v-model="qty" />
-                    </q-field>
+                <div class="row sm-gutter">
+                  <div class="col-md-6 col-xs-12">
+                    <div class="row items-center">
+                      <div class="col">
+                        <q-field
+                          label="Cantidad"
+                          icon="format_list_numbered"
+                          :label-width="4">
+                          <q-input type="text" autofocus v-model="qty" />
+                        </q-field>
+                      </div>
+                      <div class="col-auto strong">
+                        <q-chip small color="primary">{{ subtotal | currency }}</q-chip>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col">
-                    <!-- <h6>
-                      <q-icon name="star" color="amber-9" size="1.3rem"></q-icon>
-                      Promoción
-                    </h6>
-                    <q-input type="text" v-model="promo" /> -->
-                    <q-field
-                      label="Promoción"
-                      icon="star"
-                      :label-width="4"
-                    >
-                      <q-input type="text" v-model="promo" />
-                    </q-field>
+                  <div class="col-md-6 col-xs-12">
+                    <div class="row items-center">
+                      <div class="col">
+                        <q-field
+                          label="Promoción"
+                          icon="star"
+                          :label-width="4">
+                          <q-input type="text" v-model="promo" />
+                        </q-field>
+                      </div>
+                      <div class="col-auto strong">
+                        <q-chip small color="amber-9">{{ descuento | currency }}</q-chip>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </q-card-main>
               <q-card-main v-show="!validForm && errorMsg.length > 0" class="bg-red-4">{{ this.errorMsg }}</q-card-main>
             </q-card>
             <q-card flat color="blue-grey-2" class="text-dark">
-              <template v-if="this.promo > 0">
+              <!-- <template v-if="this.promo > 0">
                 <q-card-main>
-                  <div class="row items-center lg-gutter">
-                    <div class="col">Subtotal</div>
-                    <div class="col-auto strong">{{ subtotal | currency }}</div>
-                    <div class="col">Descuento</div>
-                    <div class="col-auto strong">{{ descuento | currency }}</div>
+                  <div class="row items-center xs-gutter">
+                    <div class="col-md-6 col-xs-12">
+                      <div class="row">
+                        <div class="col">Subtotal</div>
+                        <div class="col-auto strong">{{ subtotal | currency }}</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                      <div class="row">
+                        <div class="col">Descuento</div>
+                        <div class="col-auto strong">{{ descuento | currency }}</div>
+                      </div>
+                    </div>
                   </div>
                 </q-card-main>
                 <q-card-separator />
-              </template>
+              </template> -->
               <q-card-main class="bg-blue-grey-3">
                 <div class="row items-center">
                   <div class="col">
@@ -200,6 +210,8 @@ export default {
       let self = this
       let producto = this.pedido.find(prod => prod.id === obj.evt.target.offsetParent.id)
 
+      if (!producto) return false
+
       let indexOfProd = this.pedido.indexOf(producto)
 
       ActionSheet.create({
@@ -212,7 +224,7 @@ export default {
             handler () {
               if (indexOfProd > -1) {
                 self.pedido.splice(indexOfProd, 1)
-                self.updateTotalPedido(self.totalPedido)
+                // self.updateTotalPedido(self.totalPedido)
               }
             }
           },
@@ -280,28 +292,31 @@ export default {
     ...mapState(['productosList']),   
 
     validForm() {
-      if (this.qty.length == 0) this.errorMsg = ''
-      if (!this.productSelected) return false
-      if (this.productSelectedDetail.stock == 0) return false
-      if (!this.isNumber(this.qty)) return false
+      let qtyNumber = parseInt(this.qty)
+      let stockNumber = parseInt(this.productSelectedDetail.stock)
+      let promoNumber = parseInt(this.promo)
 
-      if (this.qty > this.productSelectedDetail.stock) {
+      // if (this.qty.length == 0) this.errorMsg = ''
+      if (!this.productSelected) return false
+      if (stockNumber == 0) return false
+
+      if (qtyNumber > stockNumber) {
         this.errorMsg = "La cantidad pedida no puede superar el stock diponible para el artículo seleccionado"
         return false
       }
-      if (this.qty <= 0 && this.isNumber(this.qty)) {
+      if ((qtyNumber <= 0 && this.isNumber(this.qty)) || this.qty.length == 0 || !this.isNumber(this.qty)) {
         this.errorMsg = "La cantidad pedida debe ser un número positivo"
         return false
       }
-      if (this.promo < 0) {
+      if (promoNumber < 0 && this.promo != '') {
         this.errorMsg = "La cantidad bonificada debe ser cero o un número positivo"
         return false
       }
-      if (this.isNumber(this.qty) && this.qty < this.promo) { 
+      if (this.isNumber(this.qty) && qtyNumber < promoNumber) { 
         this.errorMsg = "La cantidad pedida no puede ser menor a la bonificada"
         return false
       }
-      if (!this.isNumber(this.promo)) {
+      if (!this.isNumber(this.promo) && this.promo != '') {
         this.errorMsg = "La cantidad bonificada deben ser números"
         return false
       }
