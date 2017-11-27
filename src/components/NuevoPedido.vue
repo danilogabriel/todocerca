@@ -2,7 +2,8 @@
   <div>
       <q-toolbar color="primary">
         <q-toolbar-title>
-          Cliente: ({{ idClienteFormatted }})-{{ clienteSeleccionado.nombre }}
+          {{ clienteSeleccionado.nombre }}
+          <span slot="subtitle">ID {{ idClienteFormatted }}</span>
         </q-toolbar-title>
       </q-toolbar>
       <!-- <div>Nuevo Pedido de Cliente ID: {{ idCliente }}</div> -->
@@ -10,8 +11,8 @@
           <div class="col-auto text-center">
             <q-icon name="shopping_basket" size="9rem"/>
             <h6>Aún no hay ningún producto agregado</h6>
-            <div>Para comenzar tocá el botón <q-chip color="orange">+</q-chip></div>
-            <div>que está abajo a tu derecha</div>
+            <!-- <div>Para comenzar tocá el botón <q-chip color="orange">+</q-chip></div>
+            <div>que está abajo a tu derecha</div> -->
           </div>
       </div>
       <q-list highlight separator no-border v-else>
@@ -45,7 +46,7 @@
         <q-btn round icon="add" color="orange" class="animate-pop" @click="$refs.modalAddProducto.open()"/>
       </q-fixed-position>
 
-      <q-modal ref="modalAddProducto" maximized position="bottom" :content-css="{padding: '20px'}" @open="$refs.productFilterRef.focus()">
+      <q-modal ref="modalAddProducto" maximized :position="smallViewPort ? '' : 'bottom'" :content-css="{padding: '20px'}" @open="$refs.productFilterRef.focus()">
         <h5>Agregar Producto</h5>
         <q-search ref="productFilterRef" v-model="productoFilter" placeholder="Buscar producto" @change="checkInput">
           <q-autocomplete :min-characters="3" @selected="selected" :filter="myFilter" :static-data="{field: 'value', list: parsedProducts}"/>
@@ -54,7 +55,7 @@
           <q-card flat color="blue-grey-2" class="text-dark">
             <q-list>
               <q-item>
-                <q-item-side icon="free_breakfast" inverted color="primary"></q-item-side>
+                <!-- <q-item-side icon="free_breakfast" inverted color="primary"></q-item-side> -->
                 <q-item-main>
                   <q-item-tile label>{{ productSelectedDetail.label }}</q-item-tile>
                   <q-item-tile sublabel class="text-grey-8">{{ productSelectedDetail.sublabel }}</q-item-tile>
@@ -67,9 +68,23 @@
           <q-alert v-if="productSelectedDetail.stock == 0" color="negative"
               style="margin: 1.5rem .5rem">Artículo sin stock, por favor elegí otro</q-alert>
           <template v-else>
-            <q-card flat color="blue-grey-2" class="text-dark">
+            <q-card flat color="blue-grey-2" class="text-dark nuevo-pedido">
               <q-card-main>
-                <div class="row sm-gutter">
+                <div class="row xs-gutter">
+                  <div class="col">
+                    <q-icon name="format_list_numbered" color="primary"></q-icon>
+                    Cantidad
+                    <q-input autofocus inverted color="white" type="text" v-model="qty"/>
+                    <div class="text-center">{{ subtotal | currency }}</div>
+                  </div>
+                  <div class="col">
+                    <q-icon name="star" color="amber-9"></q-icon>
+                    Promoción
+                    <q-input inverted color="white" type="text" v-model="promo"/>
+                    <div class="text-center">{{ descuento | currency }}</div>
+                  </div>
+                </div>
+                <!-- <div class="row sm-gutter">
                   <div class="col-md-6 col-xs-12">
                     <div class="row items-center">
                       <div class="col">
@@ -100,11 +115,22 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </q-card-main>
               <q-card-main v-show="!validForm && errorMsg.length > 0" class="bg-red-4">{{ this.errorMsg }}</q-card-main>
+              <q-card-separator />
+              <q-card-main class="bg-blue-grey-3">
+                <div class="row items-center">
+                  <div class="col">
+                    <h6>Total</h6>
+                  </div>
+                  <div class="col-auto">
+                    <h6>{{ total | currency }}</h6>
+                  </div>
+                </div>
+              </q-card-main>
             </q-card>
-            <q-card flat color="blue-grey-2" class="text-dark">
+            <!-- <q-card flat color="blue-grey-2" class="text-dark"> -->
               <!-- <template v-if="this.promo > 0">
                 <q-card-main>
                   <div class="row items-center xs-gutter">
@@ -124,7 +150,7 @@
                 </q-card-main>
                 <q-card-separator />
               </template> -->
-              <q-card-main class="bg-blue-grey-3">
+              <!-- <q-card-main class="bg-blue-grey-3">
                 <div class="row items-center">
                   <div class="col">
                     <h6>Total</h6>
@@ -134,7 +160,7 @@
                   </div>
                 </div>
               </q-card-main>
-            </q-card>
+            </q-card> -->
           </template>
         </template>
 
@@ -149,6 +175,7 @@
 
 <script>
 
+
 import { mapState, mapMutations, mapActions } from 'vuex'
 import {
   QToolbar, QToolbarTitle, QBtn, QFixedPosition, QModal, QSearch, QAutocomplete, QList, QListHeader, QItem, QItemSide, QItemMain, 
@@ -156,6 +183,9 @@ import {
   ActionSheet
 } from 'quasar'
 import { TouchHold } from 'quasar'
+
+import { dom } from 'quasar'
+const { viewport } = dom
 
 export default {
   name: 'NuevoPedido',
@@ -168,6 +198,11 @@ export default {
     TouchHold
   },
   activated() {
+
+    if (this.pedido.length == 0)
+      this.$refs.modalAddProducto.open()
+
+    this.checkViewPort()
 
     let config = {
       title: "Nuevo pedido",
@@ -187,6 +222,7 @@ export default {
       productSelected: false,
       productSelectedDetail: {},
       errorMsg: '',
+      smallViewPort: null
 
       // pedidoNew y itemNew: ahora vienen del modulo 'Pedidos.js' del global state
   }),
@@ -284,6 +320,11 @@ export default {
     },
     isNumber(n) {
       return !isNaN(parseFloat(n)) && isFinite(n);
+    },
+    checkViewPort() {
+      let {height, width} = viewport()
+      this.smallViewPort = height < 650 ? true : false
+
     }
   },
   computed: {
@@ -366,5 +407,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus">
-
+.nuevo-pedido input {
+	font-size: 1.5rem;
+	text-align: center;
+  color: #333 !important
+}
 </style>

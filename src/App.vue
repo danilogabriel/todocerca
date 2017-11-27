@@ -57,11 +57,8 @@
       </keep-alive>
    
       <q-toolbar slot="footer" v-if="layout.footer" color="amber-9" class="text-dark">
-          <!-- <div class="col">{{footerText.left}}</div> -->
-
-          <!-- <div class="col text-right">Total</div> -->"
-          <q-btn flat color="none" @click="completarDatosPedido()" class="full-width">
-               Finalizar pedido ( {{ this.$store.state.pedidos.pedidoNew.subtotal | currency }} )
+          <q-btn flat icon="shopping_basket" color="none" @click="completarDatosPedido()" class="full-width" :disabled="!this.$store.state.pedidos.pedidoNew.subtotal">
+               Finalizar pedido (<strong>{{ this.$store.state.pedidos.pedidoNew.subtotal | currency }}</strong>)
           </q-btn>
       </q-toolbar> 
   
@@ -128,12 +125,12 @@
                 model: ''
               },
               nota: {
-                type: 'text',
+                type: 'textarea',
                 label: 'Nota',
                 model: ''
               }
             },
-            buttons: [   'Cancel',
+            buttons: [   'Cancelar',
                         { 
                           label: 'Confirmar',
                           raised: true,
@@ -141,7 +138,7 @@
                           preventClose: true,
                           handler: (data, close) => {
                               if (parseFloat(data.descuento) > 100) {
-                                  Toast.create.warning('Excede el maximo de descuento')
+                                  Toast.create.warning('Excede el máximo de descuento')
                                   return
                               }
                               close()
